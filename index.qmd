@@ -1,5 +1,5 @@
 ---
-title: "Coup-Proofing via Capital Relocation"
+title: "test 2"
 subtitle: "PPOL 6805 / DSAN 6750: GIS for Spatial Data Science"
 authors:
   - name: Jeff Jacobs
