@@ -1,20 +1,18 @@
 ---
-title: "test 3"
-subtitle: "PPOL 6805 / DSAN 6750: GIS for Spatial Data Science"
+title: "Undergraduate Tests and Admissions in the Southeast"
+subtitle: "DSAN 5900 Homework 1"
 authors:
-  - name: Jeff Jacobs
-    email: jj1088@georgetown.edu
+  - name: Kylie King
+    email: kk1543@georgetown.edu
     affiliation: Georgetown University
     corresponding: true
 df-print: kable
 bibliography: GIS_Manuscript.bib
-title-block-banner: "#E69F0095"
+title-block-banner: "#b3d9ff"
 title-block-banner-color: "black"
 format:
   html:
     df-print: kable
-    include-in-header:
-      text: "<script type='module' src='https://js.arcgis.com/4.34/embeddable-components/'></script>"
   pdf:
     # https://quarto.org/docs/reference/formats/pdf.html
     link-citations: true

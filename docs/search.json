@@ -2,56 +2,56 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "",
     "text": "Several previous studies have found robust relationships between spatial properties of a country’s capital city and that country’s propensity for conflict and misgovernance.\nPerceptions of this linkage also have an effect on “coup-proofing” decisions made by national governments. A recent BBC interview with Equatorial Guinea’s President Teodoro Obiang, for example, highlighted this as a factor behind his decision to relocate the capital city:\n\nIt’s the remoteness of Oyala that makes it so appealing to President Obiang. In a rare interview he described how rebels had recently plotted a seaborne assault on his palace in the current capital, Malabo. ‘We need a secure place for my government and for future governments. That’s why we have created Oyala, to guarantee the government of Equatorial Guinea.’ (Sackur 2012)\n\nThis case is far from exceptional, as an even more recent Washington Post article points out with respect to Myanmar’s decision to move its capital from Yangon to Naypyidaw:\n\nAnalysts have described the decision as motivated by a desire to secure the military’s seat of power from any threat of protests or invasions. (Berger 2021)\n\nMost of these studies, however, are based on observations of conflict events. In this study, we study the more fundamental variable of a capital’s distance from the population centroid of the country."
   },
   {
     "objectID": "index.html#introduction",
     "href": "index.html#introduction",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "",
     "text": "Several previous studies have found robust relationships between spatial properties of a country’s capital city and that country’s propensity for conflict and misgovernance.\nPerceptions of this linkage also have an effect on “coup-proofing” decisions made by national governments. A recent BBC interview with Equatorial Guinea’s President Teodoro Obiang, for example, highlighted this as a factor behind his decision to relocate the capital city:\n\nIt’s the remoteness of Oyala that makes it so appealing to President Obiang. In a rare interview he described how rebels had recently plotted a seaborne assault on his palace in the current capital, Malabo. ‘We need a secure place for my government and for future governments. That’s why we have created Oyala, to guarantee the government of Equatorial Guinea.’ (Sackur 2012)\n\nThis case is far from exceptional, as an even more recent Washington Post article points out with respect to Myanmar’s decision to move its capital from Yangon to Naypyidaw:\n\nAnalysts have described the decision as motivated by a desire to secure the military’s seat of power from any threat of protests or invasions. (Berger 2021)\n\nMost of these studies, however, are based on observations of conflict events. In this study, we study the more fundamental variable of a capital’s distance from the population centroid of the country."
   },
   {
     "objectID": "index.html#literature-review",
     "href": "index.html#literature-review",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Literature Review",
     "text": "Literature Review\nCampante, Do, and Guimaraes (2019) analyzes the relationship between the location of a capital city and the degree of conflict and misgovernance in a given country. Their two key findings are that:\n\nConflict is more likely to emerge (and dislodge incumbents) closer to the capital\n\nand\n\nIsolated capitals are associated with misgovernance.\n\nThis first finding is illustrated in Figure 1\n\n\n\n\n\n\nFigure 1"
   },
   {
     "objectID": "index.html#methodology",
     "href": "index.html#methodology",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Methodology",
     "text": "Methodology\nThe population centroids we use herein might require some explanation, since the term “centroid” can be ambiguous.\nHere, the population centroids are drawn from Hall et al. (2019)"
   },
   {
     "objectID": "index.html#exploratory-data-analysis-eda",
     "href": "index.html#exploratory-data-analysis-eda",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Exploratory Data Analysis (EDA)",
     "text": "Exploratory Data Analysis (EDA)\nHere we plot the base GIS objects we’re analyzing: the location of each capital city (in purple) and each population centroid (in yellow).\n\nlibrary(tidyverse) |&gt; suppressPackageStartupMessages()\n\nWarning: package 'tidyverse' was built under R version 4.5.2\n\n\nWarning: package 'ggplot2' was built under R version 4.5.2\n\n\nWarning: package 'tidyr' was built under R version 4.5.2\n\n\nWarning: package 'readr' was built under R version 4.5.2\n\n\nWarning: package 'dplyr' was built under R version 4.5.2\n\n\nWarning: package 'lubridate' was built under R version 4.5.2\n\nlibrary(sf) |&gt; suppressPackageStartupMessages()\nlibrary(mapview) |&gt; suppressPackageStartupMessages()\nlibrary(units) |&gt; suppressPackageStartupMessages()\ncb_palette &lt;- c(\"#E69F00\", \"#56B4E9\", \"#009E73\", \"#F0E442\", \"#0072B2\", \"#D55E00\", \"#CC79A7\")\n\n\nmerged_long_sf &lt;- readRDS(\"data/merged_long_sf.rds\")\nmapview(merged_long_sf, zcol=\"name\", cex=4, label=\"geounit\")\n\nWarning in validateCoords(lng, lat, funcName): Data contains 3 rows with either\nmissing or invalid lat/lon values and will be ignored\n\n\n\n\n\n\nWe then construct an area-normalized measure of capital-centroid distance \\(\\text{dist}^{\\textsf{AN}}\\), using the formula\n\\[\n\\text{dist}^{\\textsf{AN}}_i = \\text{dist}_i / \\sqrt{\\text{area}_i}.\n\\]\nA plot of this measure by country looks as follows:\n\nmerged_area_sf &lt;- readRDS(\"data/merged_area_sf.rds\")\n# Uncomment to export to geojson\n# merged_area_sf |&gt; st_write(\"data/merged_area_sf.geojson\")\nmapview(merged_area_sf, zcol=\"scaled_dist\")\n\n\n\n\n\nIf the data was too big for mapview, the following is the same map hosted on ArcGIS and embedded here:"
   },
   {
     "objectID": "index.html#hypothesis-testing-regression",
     "href": "index.html#hypothesis-testing-regression",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Hypothesis Testing (Regression)",
     "text": "Hypothesis Testing (Regression)\n\nmerged_sub_sf &lt;- readRDS(\"data/merged_sub_sf.rds\")\nmerged_sub_sf |&gt; head()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ngeounit\niso_a3\nOBJECTID\nID_0\nNAME_ENGLI\nOUT_FLAG\nNAME\ndist\narea\nscaled_dist\ntotal_score\ngeometry\ncentroid\ncapital\n\n\n\n\nTanzania\nTZA\n227\n227\nTanzania\n0\nDar es Salaam\n324758.1 [m]\n885800\n345.0580 [m]\n0.007\nMULTIPOLYGON (((33.90371 -0…\nPOINT (36.5813 -5.612844)\nPOINT (39.2664 -6.798067)\n\n\nCanada\nCAN\n42\n42\nCanada\n0\nOttawa\n1410811.7 [m]\n8788700\n475.8902 [m]\n0.001\nMULTIPOLYGON (((-122.84 49,…\nPOINT (-92.673 51.33108)\nPOINT (-75.70196 45.41864)\n\n\nUnited States of America\nUSA\n244\n244\nUnited States\n0\nWashington, D.C.\n1227411.4 [m]\n9147420\n405.8269 [m]\n0.022\nMULTIPOLYGON (((-122.84 49,…\nPOINT (-91.24719 39.43566)\nPOINT (-77.01136 38.9015)\n\n\nKazakhstan\nKAZ\n117\n117\nKazakhstan\n0\nNur-Sultan\n227074.6 [m]\n2699700\n138.2009 [m]\n0.010\nMULTIPOLYGON (((87.35997 49…\nPOINT (69.7252 49.45229)\nPOINT (71.42777 51.18113)\n\n\nUzbekistan\nUZB\n246\n246\nUzbekistan\n0\nTashkent\n168011.1 [m]\n440653\n253.0985 [m]\n0.005\nMULTIPOLYGON (((55.96819 41…\nPOINT (67.77264 40.30358)\nPOINT (69.26882 41.30383)\n\n\nPapua New Guinea\nPNG\n175\n175\nPapua New Guinea\n0\nPort Moresby\n289887.1 [m]\n452860\n430.7714 [m]\n0.025\nMULTIPOLYGON (((141.0002 -2…\nPOINT (146.2921 -7.014699)\nPOINT (147.1925 -9.464708)\n\n\n\n\n\n\n\nmerged_sub_sf |&gt; ggplot(aes(x=scaled_dist, y=total_score, label=NAME_ENGLI)) +\n  geom_point() +\n  geom_smooth(method='lm', formula= y~x) +\n  geom_text(size=4, nudge_y = 0.075) +\n  theme_classic()\n\nWarning: Removed 4 rows containing non-finite outside the scale range\n(`stat_smooth()`).\n\n\nWarning: The following aesthetics were dropped during statistical transformation: label.\nℹ This can happen when ggplot fails to infer the correct grouping structure in\n  the data.\nℹ Did you forget to specify a `group` aesthetic or to convert a numerical\n  variable into a factor?\n\n\nWarning: Removed 4 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\nWarning: Removed 4 rows containing missing values or values outside the scale range\n(`geom_text()`)."
   },
   {
     "objectID": "index.html#discussion",
     "href": "index.html#discussion",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Discussion",
     "text": "Discussion"
   },
   {
     "objectID": "index.html#conclusion",
     "href": "index.html#conclusion",
-    "title": "test 3",
+    "title": "Undergraduate Tests and Admissions in the Southeast",
     "section": "Conclusion",
     "text": "Conclusion\nOur evidence indicates that the spatial dynamics of conflict differ from the spatial dynamics of misgovernance."
   }
