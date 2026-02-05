@@ -1,5 +1,5 @@
 ---
-title: "test 2"
+title: "test 3"
 subtitle: "PPOL 6805 / DSAN 6750: GIS for Spatial Data Science"
 authors:
   - name: Jeff Jacobs
