@@ -112,33 +112,32 @@ admin_test_df <- read_csv("data/admin_test_full.csv")
 #testing plotly charts
 
 #fitting a linear model
-lm_fit <- lm(C150_4 ~ SAT_AVG, data = admin_df)
-
-# Predict values along the range of SAT_AVG
-sat_range <- seq(min(admin_df$SAT_AVG, na.rm = TRUE),
-                 max(admin_df$SAT_AVG, na.rm = TRUE),
-                 length.out = 100)
-
-pred_df <- data.frame(
-  SAT_AVG = sat_range,
-  C150_4 = predict(lm_fit, newdata = data.frame(SAT_AVG = sat_range))
-)
 
 fig <- plot_ly(admin_df, 
                x = ~SAT_AVG, y = ~C150_4,
                type = 'scatter', mode = 'markers',
                marker = list(color = sat_blue),
-               name = 'Schools') %>%
-  add_trace(data = pred_df,
-            x = ~SAT_AVG, y = ~C150_4,
-            type = 'scatter', mode = 'lines',
-            line = list(color = 'steelblue3', width = 2),
-            name = 'Linear Trend') %>%
-  layout(title = list(text = "Relationship Between SAT Average Scores and 6-Year Completion Rates",
-                      font = list(size = 16)),
-         xaxis = list(title = "SAT Average Score for Accepted Students"),
-         yaxis = list(title = "Proportion of Undergrad Students Who Graduate in 6 Years",
-                      tickformat = "%"))
+               name = 'Schools') |>
+  layout(
+    title = list(
+      text = "Relationship Between SAT Average Scores and 6-Year Completion Rates",
+      font = list(size = 18, color = "black", family = "Arial"),
+      x = 0.5  # centers the title like hjust = 0.5
+    ),
+    xaxis = list(
+      title = list(text = "SAT Average Score for Accepted Students", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial")
+    ),
+    yaxis = list(
+      title = list(text = "Proportion of Undergrad Students Who Graduate in 6 Years", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      tickformat = ".0%"
+    ),
+    legend = list(
+      title = list(text = "", font = list(size = 14, color = "black")),
+      font = list(size = 12, color = "black")
+    )
+  )
 ```
 
 ```{r}
