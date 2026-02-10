@@ -1,6 +1,6 @@
 ---
 title: "To Test, or Not to Test?"
-subtitle: "DSAN 5900 Homework 1"
+subtitle: "A Hypothetical Report for Georgecity University"
 authors:
   - name: Kylie King
     email: kk1543@georgetown.edu
@@ -26,6 +26,7 @@ https://progresslearning.com/news-blog/colleges-dropping-reinstating-act-sat-req
 https://www.newamerica.org/education-policy/edcentral/the-sats-not-quite-comeback/
 https://www.usnews.com/opinion/articles/2025-10-22/college-testing-act-sat-admissions-meritocracy
 https://www.timesnewspapers.com/webster-kirkwoodtimes/sat-act-making-comeback-for-college-admissions/article_77a88f3e-34ab-49c4-b075-58ca91a5ca30.html
+https://fairtest.org/overwhelming-majority-of-u-s-colleges-and-universities-remain-act-sat-optional-or-test-blind-score-free-for-fall-2025/
 
 Pretend that you are a lead Data Scientist with an educational
 institution.
@@ -53,6 +54,7 @@ Here we plot the base GIS objects we're analyzing: the location of each **capita
 
 ```{r}
 #| label: imports
+#| echo: false
 library(tidyverse) |> suppressPackageStartupMessages()
 library(plotly) |> suppressPackageStartupMessages()
 library(colorspace) |> suppressPackageStartupMessages()
@@ -64,6 +66,7 @@ sat_grey <- "#96999aff"
 
 ```{r}
 #| label: loading_data
+#| echo: false
 admin_df <- read_csv("data/cleaned_admin_df.csv")
 admin_test_df <- read_csv("data/admin_test_full.csv")
 df_counts <- admin_test_df |>
@@ -73,6 +76,7 @@ df_counts <- admin_test_df |>
 
 ```{r}
 #| label: testing charts
+#| echo: false
 #testing plotly charts
 
 fig <- plot_ly(admin_df, 
@@ -123,10 +127,12 @@ fig <- plot_ly(admin_df,
 ```
 
 ```{r}
+#| echo: false
 fig
 ```
 
 ```{r}
+#| echo: false
 fig <- plot_ly(
   df_counts,
   x = ~Policy_2026,
@@ -143,25 +149,81 @@ fig <- plot_ly(
     title = list(
       text = "Admissions Test Policies in Nearby Schools for Fall 2026",
       x = 0.5,
-      font = list(size = 16, color = "black", family = "Arial")  # Match scatterplot title style
+      font = list(size = 18, color = "black", family = "Arial")  # Match scatterplot title style
     ),
     xaxis = list(
-      title = "Admissions Testing Requirement",
+      title = list(text="Admissions Testing Requirement", font = list(size = 14, color = "black", family = "Arial")),
       tickfont = list(size = 12, color = "black", family = "Arial")
     ),
     yaxis = list(
-      title = "Percent of Nearby Schools",
+      title = list(text="Percent of Nearby Schools", font = list(size = 14, color = "black", family = "Arial")),
       tickfont = list(size = 12, color = "black", family = "Arial"),
       tickformat = ".0%",
       range = c(0, 1)
     ),
-    margin = list(t = 120)  # Extra top margin for title
+    margin = list(t = 90)  # Extra top margin for title
   ) |>
   config(
     staticPlot = TRUE 
   )
+
 ```
 
 ```{r}
+#| echo: false
+fig
+```
+
+```{r}
+#| echo: false
+
+year <- c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+test_takers <- c(1637589, 1715481, 2136539, 2220087, 2198460, 1509133, 1737678, 1913742, 1973891)
+test_takers_df <- data.frame(year, test_takers)
+
+fig <- plot_ly(
+  test_takers_df,
+  x = ~year,
+  y = ~test_takers/1e6,
+  type = 'scatter',
+  mode = 'lines+markers',
+  line = list(color = sat_blue, width = 2),
+  text = ~paste(
+    "Year: ", year,
+    "<br>Number of Students:", format(test_takers, big.mark = ",")
+  ),
+  hoverinfo = 'text'
+) |>
+  layout(
+    title = list(
+      text = "SAT Test Takers by Year (2016-2024)",
+      x = 0.5,
+      font = list(size = 16, color = "black", family = "Arial") 
+    ),
+    xaxis = list(
+      title = list(text="Year", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(text="Number of Test Takers (millions)", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      tickformat = ".1f",
+      fixedrange = TRUE
+    )
+  ) |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+#| echo: false
 fig
 ```
