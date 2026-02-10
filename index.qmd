@@ -58,6 +58,7 @@ library(plotly) |> suppressPackageStartupMessages()
 library(colorspace) |> suppressPackageStartupMessages()
 dark_steelblue <- darken("steelblue4", 0.2)
 sat_blue <- '#009bdb'
+sat_grey <- "#96999aff"
 
 ```
 
@@ -159,6 +160,8 @@ fig <- plot_ly(
   config(
     staticPlot = TRUE 
   )
+```
 
+```{r}
 fig
 ```
