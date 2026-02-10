@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+
+<front>
+
+
+<article-meta>
+
+
+
+
+
+
+
+
+
+
+
+
+<history></history>
+
+
+
+
+
+
+</article-meta>
+
+</front>
+
+<body>
+<code language="r script">library(tidyverse) |&gt; suppressPackageStartupMessages()</code>
+<preformat>Warning: package 'tidyverse' was built under R version 4.5.2</preformat>
+<preformat>Warning: package 'ggplot2' was built under R version 4.5.2</preformat>
+<preformat>Warning: package 'tidyr' was built under R version 4.5.2</preformat>
+<preformat>Warning: package 'readr' was built under R version 4.5.2</preformat>
+<preformat>Warning: package 'dplyr' was built under R version 4.5.2</preformat>
+<preformat>Warning: package 'lubridate' was built under R version 4.5.2</preformat>
+<code language="r script">library(plotly) |&gt; suppressPackageStartupMessages()</code>
+<preformat>Warning: package 'plotly' was built under R version 4.5.2</preformat>
+<code language="r script">library(colorspace) |&gt; suppressPackageStartupMessages()
+dark_steelblue &lt;- darken(&quot;steelblue4&quot;, 0.2)
+sat_blue &lt;- '#009bdb'
+
+theme_eda &lt;- theme(
+  # Overall text
+  text = element_text(family = &quot;Helvetica&quot;, color = &quot;black&quot;),
+  
+  # Plot background
+  plot.background = element_rect(fill = &quot;white&quot;, color = NA),
+  panel.background = element_rect(fill = &quot;grey98&quot;, color = NA),
+  
+  # Gridlines
+  panel.grid.major = element_line(color = &quot;grey85&quot;),
+  panel.grid.minor = element_line(color = &quot;grey90&quot;),
+  
+  # Titles
+  plot.title = element_text(size = 20, face = &quot;bold&quot;, color = dark_steelblue, hjust = 0.5, margin = margin(b = 10)),
+  plot.subtitle = element_text(size = 14, color = &quot;grey30&quot;, hjust = 0.5, margin = margin(b = 10)),
+  
+  # Axis
+  axis.title = element_text(size = 14, face = &quot;bold&quot;, color = dark_steelblue),
+  axis.text = element_text(size = 12, color = &quot;grey20&quot;),
+  axis.ticks = element_line(color = &quot;grey70&quot;),
+  
+  # Legend
+  legend.background = element_rect(fill = &quot;grey98&quot;, color = NA),
+  legend.key = element_rect(fill = &quot;grey98&quot;),
+  legend.title = element_text(size = 14, face = &quot;bold&quot;, color = dark_steelblue),
+  legend.text = element_text(size = 12, color = &quot;grey20&quot;),
+  legend.position = &quot;top&quot;,
+  legend.key.size = unit(1.2, &quot;lines&quot;),
+  
+  # Facets
+  strip.background = element_rect(fill = &quot;steelblue3&quot;, color = NA),
+  strip.text = element_text(size = 14, face = &quot;bold&quot;, color = &quot;white&quot;),
+  
+  # Margins
+  plot.margin = margin(10, 10, 10, 10)
+)
+
+# Apply globally
+theme_set(theme_eda)</code>
+<code language="r script">admin_df &lt;- read_csv(&quot;cleaned_admin_df.csv&quot;)</code>
+<preformat>Rows: 287 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (4): INSTNM, CITY, STABBR, ZIP
+dbl (11): UNITID, HIGHDEG, ST_FIPS, LATITUDE, LONGITUDE, LOCALE, ADM_RATE, S...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</preformat>
+<code language="r script">admin_test_df &lt;- read_csv(&quot;admin_test_full.csv&quot;)</code>
+<preformat>Rows: 287 Columns: 18
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr  (6): INSTNM, CITY, STABBR, ZIP, Policy_2026, Is_policy_temporary
+dbl (12): UNITID, HIGHDEG, ST_FIPS, LATITUDE, LONGITUDE, LOCALE, ADM_RATE, S...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</preformat>
+<code language="r script">#testing plotly charts
+
+#fitting a linear model
+
+fig &lt;- plot_ly(admin_df, 
+               x = ~SAT_AVG, y = ~C150_4,
+               type = 'scatter', mode = 'markers',
+               marker = list(color = sat_blue),
+               name = 'Schools') |&gt;
+  layout(
+    title = list(
+      text = &quot;Relationship Between SAT Average Scores and 6-Year Completion Rates&quot;,
+      font = list(size = 18, color = &quot;black&quot;, family = &quot;Arial&quot;),
+      x = 0.5  # centers the title like hjust = 0.5
+    ),
+    xaxis = list(
+      title = list(text = &quot;SAT Average Score for Accepted Students&quot;, font = list(size = 14, color = &quot;black&quot;, family = &quot;Arial&quot;)),
+      tickfont = list(size = 12, color = &quot;black&quot;, family = &quot;Arial&quot;)
+    ),
+    yaxis = list(
+      title = list(text = &quot;Proportion of Undergrad Students Who Graduate in 6 Years&quot;, font = list(size = 14, color = &quot;black&quot;, family = &quot;Arial&quot;)),
+      tickfont = list(size = 12, color = &quot;black&quot;, family = &quot;Arial&quot;),
+      tickformat = &quot;.0%&quot;
+    ),
+    legend = list(
+      title = list(text = &quot;&quot;, font = list(size = 14, color = &quot;black&quot;)),
+      font = list(size = 12, color = &quot;black&quot;)
+    )
+  )</code>
+</body>
+
+<back>
+</back>
+
+
+</article>

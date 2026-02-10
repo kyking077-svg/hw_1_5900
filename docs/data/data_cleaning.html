@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Cleaning for Homework 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="data_cleaning.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Cleaning for Homework 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This Jupyter Notebook contains all the information for cleaning and processing the data for the website report. The technical information about sourcing and preprocessing will be in this Notebook, and not in the official report content page. This project uses R primarily, through the Tidyverse package.</p>
+<div id="1c5110c5" class="cell" data-execution_count="168">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">##install.packages('tidyverse')</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'tidyverse'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>library(colorspace)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dark_steelblue <span class="op">&lt;-</span> darken(<span class="st">"steelblue4"</span>, <span class="fl">0.2</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sat_blue <span class="op">&lt;-</span> <span class="st">'#009bdb'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Modern polished theme</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>theme_eda_modern <span class="op">&lt;-</span> theme(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Overall text</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  text <span class="op">=</span> element_text(family <span class="op">=</span> <span class="st">"Helvetica"</span>, color <span class="op">=</span> <span class="st">"black"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot background</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  plot.background <span class="op">=</span> element_rect(fill <span class="op">=</span> <span class="st">"white"</span>, color <span class="op">=</span> NA),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  panel.background <span class="op">=</span> element_rect(fill <span class="op">=</span> <span class="st">"grey98"</span>, color <span class="op">=</span> NA),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gridlines</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  panel.grid.major <span class="op">=</span> element_line(color <span class="op">=</span> <span class="st">"grey85"</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  panel.grid.minor <span class="op">=</span> element_line(color <span class="op">=</span> <span class="st">"grey90"</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Titles</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">20</span>, face <span class="op">=</span> <span class="st">"bold"</span>, color <span class="op">=</span> dark_steelblue, hjust <span class="op">=</span> <span class="fl">0.5</span>, margin <span class="op">=</span> margin(b <span class="op">=</span> <span class="dv">10</span>)),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  plot.subtitle <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, color <span class="op">=</span> <span class="st">"grey30"</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, margin <span class="op">=</span> margin(b <span class="op">=</span> <span class="dv">10</span>)),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Axis</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>, color <span class="op">=</span> dark_steelblue),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, color <span class="op">=</span> <span class="st">"grey20"</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  axis.ticks <span class="op">=</span> element_line(color <span class="op">=</span> <span class="st">"grey70"</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Legend</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  legend.background <span class="op">=</span> element_rect(fill <span class="op">=</span> <span class="st">"grey98"</span>, color <span class="op">=</span> NA),</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  legend.key <span class="op">=</span> element_rect(fill <span class="op">=</span> <span class="st">"grey98"</span>),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  legend.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>, color <span class="op">=</span> dark_steelblue),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  legend.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, color <span class="op">=</span> <span class="st">"grey20"</span>),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  legend.position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  legend.key.size <span class="op">=</span> unit(<span class="fl">1.2</span>, <span class="st">"lines"</span>),</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Facets</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  strip.background <span class="op">=</span> element_rect(fill <span class="op">=</span> <span class="st">"steelblue3"</span>, color <span class="op">=</span> NA),</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  strip.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>, color <span class="op">=</span> <span class="st">"white"</span>),</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Margins</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  plot.margin <span class="op">=</span> margin(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply globally</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>theme_set(theme_eda_modern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f66d6829" class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loading the data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> read_csv(<span class="st">"Most-Recent-Cohorts-Institution.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">6429</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">3306</span>
+
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+
+<span class="ansi-bold">Delimiter:</span> ","
+
+<span class="ansi-red-fg">chr</span> (2380): OPEID, OPEID6, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL,...
+
+<span class="ansi-green-fg">dbl</span>  (851): UNITID, SCH_DEG, HCM2, MAIN, NUMBRANCH, PREDDEG, HIGHDEG, CONTRO...
+
+<span class="ansi-yellow-fg">lgl</span>   (75): LOCALE2, UG, UGDS_WHITENH, UGDS_BLACKNH, UGDS_API, UGDS_AIANOLD,...
+
+
+
+<span class="ansi-cyan-fg">ℹ</span> Use `spec()` to retrieve the full column specification for this data.
+
+<span class="ansi-cyan-fg">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</pre>
+</div>
+</div>
+</div>
+<p>First I will do an initial filtering and cleaning of the dataset. I want to specify the states and columns the project could be based off of. We also need to make sure that I have at least 200 usable schools.</p>
+<div id="75fe3ba7" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## selecting the states I want</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>states <span class="op">&lt;-</span> c(<span class="st">'DC'</span>,<span class="st">'DE'</span>,<span class="st">'FL'</span>,<span class="st">'GA'</span>,<span class="st">'MD'</span>,<span class="st">'NC'</span>,<span class="st">'PA'</span>,<span class="st">'SC'</span>,<span class="st">'VA'</span>,<span class="st">'WV'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span> <span class="bu">filter</span>(STABBR <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">## and making sure we have values in the admissions rate column</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> <span class="bu">filter</span>(<span class="op">!</span><span class="kw">is</span>.na(ADM_RATE))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#there are 3306 columns, we do not need that many.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Unit ID for the university, institution name, city, state, zip code, highest degree awarded,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  fips code for state, lat and long coordinates, locale of institution (city, rural), </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># admission rate,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># SAT midpoints for critical thinking, reading, and writing, and average total</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ACT midpoints for english, math, and writing, and the midpoint cumulative score,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Completion rate for first-time, full-time students at four-year institutions (150% of expected time to completion)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># total share of undergrad enrollment who are men, and women, number of grad students</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#number of programs offered</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>columns_to_select <span class="op">&lt;-</span> c(<span class="st">'UNITID'</span>,<span class="st">'INSTNM'</span>,<span class="st">'CITY'</span>,<span class="st">'STABBR'</span>,<span class="st">'ZIP'</span>,<span class="st">'HIGHDEG'</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">'ST_FIPS'</span>,<span class="st">'LATITUDE'</span>,<span class="st">'LONGITUDE'</span>,<span class="st">'LOCALE'</span>,<span class="st">'ADM_RATE'</span>,<span class="st">'SATVRMID'</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">'SATMTMID'</span>,<span class="st">'SATWRMID'</span>,<span class="st">'SAT_AVG'</span>, <span class="st">'ACTCMMID'</span>,<span class="st">'ACTENMID'</span>, <span class="st">'ACTMTMID'</span>,<span class="st">'ACTWRMID'</span>,<span class="st">'C150_4'</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">'UGDS_MEN'</span>, <span class="st">'UGDS_WOMEN'</span>,<span class="st">'GRADS'</span>,<span class="st">'PRGMOFR'</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> select(columns_to_select)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Retained Columns:"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(colnames(cleaning))</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(paste(<span class="st">"Number of Schools:"</span>, nrow(cleaning)))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columns with Missing Values: "</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>colSums(<span class="kw">is</span>.na(cleaning))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Retained Columns:"
+ [1] "UNITID"     "INSTNM"     "CITY"       "STABBR"     "ZIP"       
+ [6] "HIGHDEG"    "ST_FIPS"    "LATITUDE"   "LONGITUDE"  "LOCALE"    
+[11] "ADM_RATE"   "SATVRMID"   "SATMTMID"   "SATWRMID"   "SAT_AVG"   
+[16] "ACTCMMID"   "ACTENMID"   "ACTMTMID"   "ACTWRMID"   "C150_4"    
+[21] "UGDS_MEN"   "UGDS_WOMEN" "GRADS"      "PRGMOFR"   
+[1] "Number of Schools: 486"
+[1] "Columns with Missing Values: "</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS 
+         0          0          0          0          0          0          0 
+  LATITUDE  LONGITUDE     LOCALE   ADM_RATE   SATVRMID   SATMTMID   SATWRMID 
+         0          0          0          0        233        233        272 
+   SAT_AVG   ACTCMMID   ACTENMID   ACTMTMID   ACTWRMID     C150_4   UGDS_MEN 
+       194        244        258        259        396         77          0 
+UGDS_WOMEN      GRADS    PRGMOFR 
+         0        146        450 </code></pre>
+</div>
+</div>
+<p>We need to have SAT_AVG scores for every school in my small study, so we are going to drop all of the rows that have a ‘NA’ in that column, and the NA’s in the Completed in 4 years column. I also see that almost no schools have the ACTWRMID or PRGMOFR column, so lets get rid of those. Because I don’t have a conversion for the SAT to ACT, I’m also going to drop the ACT columns and extra SAT columns.</p>
+<div id="51d597e1" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> drop_na(SAT_AVG) <span class="op">|&gt;</span> drop_na(C150_4) <span class="op">|&gt;</span> select(<span class="op">-</span>PRGMOFR, <span class="op">-</span>ACTWRMID, <span class="op">-</span>SATVRMID, <span class="op">-</span>SATMTMID, <span class="op">-</span>SATWRMID, <span class="op">-</span>ACTENMID, <span class="op">-</span>ACTMTMID,<span class="op">-</span>ACTCMMID,<span class="op">-</span>GRADS)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(paste(<span class="st">"Number of Schools:"</span>, nrow(cleaning)))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columns with Missing Values: "</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>colSums(<span class="kw">is</span>.na(cleaning))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of Schools: 287"
+[1] "Columns with Missing Values: "</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS 
+         0          0          0          0          0          0          0 
+  LATITUDE  LONGITUDE     LOCALE   ADM_RATE    SAT_AVG     C150_4   UGDS_MEN 
+         0          0          0          0          0          0          0 
+UGDS_WOMEN 
+         0 </code></pre>
+</div>
+</div>
+<p>This leaves us a clean dataset with unique identifiers and location data for all 287 schools on the list. We also have the admission rates, the average SAT score of applicants, the completion rate for first-time, full-time students at four-year institutions (150% of expected time to completion), and the total share of undergrad enrollment who are men, and who are women. We should be able to make a pretty sophisticated report with this information. Lets save our updated CSV before we do any more exploration.</p>
+<div id="bbbbeaf3" class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>write_csv(cleaning, <span class="st">"cleaned_admin_df.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have our clean dataset, we can start with some basic visualizations to make sure we have a proportional dataset</p>
+<div id="e970a08f" class="cell" data-execution_count="169">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> read_csv(<span class="st">"cleaned_admin_df.csv"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x<span class="op">=</span>STABBR)) <span class="op">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"count"</span>, fill<span class="op">=</span>sat_blue) <span class="op">+</span> labs(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Number of Schools per State in Sample"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"State"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"Number of Schools"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">287</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">15</span>
+
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+
+<span class="ansi-bold">Delimiter:</span> ","
+
+<span class="ansi-red-fg">chr</span>  (4): INSTNM, CITY, STABBR, ZIP
+
+<span class="ansi-green-fg">dbl</span> (11): UNITID, HIGHDEG, ST_FIPS, LATITUDE, LONGITUDE, LOCALE, ADM_RATE, S...
+
+
+
+<span class="ansi-cyan-fg">ℹ</span> Use `spec()` to retrieve the full column specification for this data.
+
+<span class="ansi-cyan-fg">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pennsylvania has a lot more data than the others, so lets see if it’s a lot of schools, or many campuses under one school.</p>
+<div id="ac3c9a91" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(admin_df$INSTNM[admin_df$STABBR <span class="op">==</span> <span class="st">"PA"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Bryn Athyn College of the New Church"                         
+ [2] "Allegheny College"                                            
+ [3] "DeSales University"                                           
+ [4] "Alvernia University"                                          
+ [5] "Arcadia University"                                           
+ [6] "Bryn Mawr College"                                            
+ [7] "Bucknell University"                                          
+ [8] "Cabrini University"                                           
+ [9] "Carnegie Mellon University"                                   
+[10] "Cedar Crest College"                                          
+[11] "Chatham University"                                           
+[12] "Delaware Valley University"                                   
+[13] "Drexel University"                                            
+[14] "Duquesne University"                                          
+[15] "East Stroudsburg University of Pennsylvania"                  
+[16] "Elizabethtown College"                                        
+[17] "Franklin and Marshall College"                                
+[18] "Gettysburg College"                                           
+[19] "Grove City College"                                           
+[20] "Gwynedd Mercy University"                                     
+[21] "Haverford College"                                            
+[22] "Holy Family University"                                       
+[23] "Immaculata University"                                        
+[24] "Indiana University of Pennsylvania-Main Campus"               
+[25] "Juniata College"                                              
+[26] "Keystone College"                                             
+[27] "King's College"                                               
+[28] "Kutztown University of Pennsylvania"                          
+[29] "La Roche University"                                          
+[30] "Lafayette College"                                            
+[31] "Lancaster Bible College"                                      
+[32] "Lebanon Valley College"                                       
+[33] "Lehigh University"                                            
+[34] "Lincoln University"                                           
+[35] "Lycoming College"                                             
+[36] "Manor College"                                                
+[37] "Marywood University"                                          
+[38] "Messiah University"                                           
+[39] "Millersville University of Pennsylvania"                      
+[40] "Moore College of Art and Design"                              
+[41] "Moravian University"                                          
+[42] "Mount Aloysius College"                                       
+[43] "Muhlenberg College"                                           
+[44] "Pennsylvania State University-Penn State Erie-Behrend College"
+[45] "Pennsylvania State University-Penn State New Kensington"      
+[46] "Pennsylvania State University-Penn State Shenango"            
+[47] "Pennsylvania State University-Penn State Wilkes-Barre"        
+[48] "Pennsylvania State University-Penn State Scranton"            
+[49] "Pennsylvania State University-Penn State Lehigh Valley"       
+[50] "Pennsylvania State University-Penn State Altoona"             
+[51] "Pennsylvania State University-Penn State Beaver"              
+[52] "Pennsylvania State University-Penn State Berks"               
+[53] "Pennsylvania State University-Penn State Harrisburg"          
+[54] "Pennsylvania State University-Penn State Brandywine"          
+[55] "Pennsylvania State University-Penn State DuBois"              
+[56] "Pennsylvania State University-Penn State Fayette- Eberly"     
+[57] "Pennsylvania State University-Penn State Hazleton"            
+[58] "Pennsylvania State University-Main Campus"                    
+[59] "Pennsylvania State University-Penn State Greater Allegheny"   
+[60] "Pennsylvania State University-Penn State Mont Alto"           
+[61] "Pennsylvania State University-Penn State Abington"            
+[62] "Pennsylvania State University-Penn State Schuylkill"          
+[63] "Pennsylvania State University-Penn State York"                
+[64] "University of Pennsylvania"                                   
+[65] "Cairn University-Langhorne"                                   
+[66] "University of Pittsburgh-Bradford"                            
+[67] "University of Pittsburgh-Greensburg"                          
+[68] "University of Pittsburgh-Johnstown"                           
+[69] "University of Pittsburgh-Pittsburgh Campus"                   
+[70] "Point Park University"                                        
+[71] "Saint Francis University"                                     
+[72] "Saint Joseph's University - Philadelphia"                     
+[73] "Saint Vincent College"                                        
+[74] "University of Scranton"                                       
+[75] "Seton Hill University"                                        
+[76] "Shippensburg University of Pennsylvania"                      
+[77] "Slippery Rock University of Pennsylvania"                     
+[78] "Susquehanna University"                                       
+[79] "Swarthmore College"                                           
+[80] "Thomas Jefferson University"                                  
+[81] "Ursinus College"                                              
+[82] "Villanova University"                                         
+[83] "Waynesburg University"                                        
+[84] "West Chester University of Pennsylvania"                      
+[85] "Widener University"                                           
+[86] "Wilkes University"                                            
+[87] "Wilson College"                                               
+[88] "York College of Pennsylvania"                                 
+[89] "Pennsylvania State University-World Campus"                   
+[90] "Commonwealth University of Pennsylvania"                      
+[91] "Pennsylvania Western University"                              </code></pre>
+</div>
+</div>
+<p>Penn State has about 20 separate schools, each of which has its own statistics in the dataset. We have a few options. We could include these as-are, we could only count the main campus, or we could aggregate all of the statistics to an average of all the campuses. Most other states have about 20-30 schools, excluding DC and Delaware, which are both tiny.</p>
+<p>Penn State’s various campuses seem to have different focuses, admission rates, and demographics of applicants, so we should probably keep all of them if we are going to compare admissions rates and school acceptances. Now lets look at the spread of our admission rates, SAT scores, proportions of men and women, and completion rates.</p>
+<div id="54d4afed" class="cell" data-execution_count="180">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of admissions rates</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Admissions Rates"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Admissions Rate"</span>, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of SAT scores</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG)) <span class="op">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of SAT Averages for Admitted Students"</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average of Admitted Students"</span>, </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of completion rates</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>p3 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> C150_4)) <span class="op">+</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of 6-year Completion Rates"</span>,</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"6-year Completion Rate"</span>, </span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co"># proportion of women (which is the inverse of the proportion of men)</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>p4 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Female Enrolled Student Proportions"</span>,</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>, </span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6897dedc" class="cell" data-execution_count="181">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine and display plots</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("patchwork")</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'patchwork'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="op">&lt;-</span> (p1 <span class="op">+</span> p2) <span class="op">/</span> (p3 <span class="op">+</span> p4)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the combined plot</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(combined_plot)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#this would probably look better in python, but I think the website will use some plotly stuff if we can figure it out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I want to look at whether there is any correlation between SAT scores and admissions rates, and the proportion of female enrolled students. Then I want to see if either of those are at all related to the 6 year completion rate, and hopefully provide a recommendation whether to maintain or remove SAT test requirements.</p>
+<p>We need to find out if high admissions rates are correlated with low SAT scores, and if low admissions rates are correlated with high SAT scores. (This seems obvious, but we should establish it)</p>
+<p>Alright, lets see if admissoins rates are correlated with SAT scores. We will start with some statistical analysis</p>
+<div id="ef1ad565" class="cell" data-execution_count="186">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Admissions Rates"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Admissions Rate"</span>)<span class="op">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    formula <span class="op">=</span> y <span class="op">~</span> x <span class="op">+</span> I(x<span class="op">^</span><span class="dv">2</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    se <span class="op">=</span> TRUE, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="ed687dc6" class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$ADM_RATE, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>correlation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[1] -0.5716748</code></pre>
+</div>
+</div>
+<p>From this we see a moderate negative correlation. More selective schools (those with lower admissions rates) offer admission to students who have higher SAT scores. A large proportion of schools have higher accceptance rates, and accept more moderate SAT scores. Basically, fancy schools care, but the rest all hover around the same area.</p>
+<p>Now lets see if SAT score has anything to do with the number of women enrolled</p>
+<div id="2ed0ff45" class="cell" data-execution_count="185">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$UGDS_WOMEN, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Female Enrollment"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>)<span class="op">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.1036536</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div class="ansi-escaped-output">
+<pre>`geom_smooth()` using formula = 'y ~ x'</pre>
+</div>
+</div>
+</div>
+<p>There appears to be no relationship. Now lets try completion rates</p>
+<div id="1db7dea1" class="cell" data-execution_count="184">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$C150_4, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> C150_4)) <span class="op">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who  Graduate in 5 Years"</span>)<span class="op">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7464987</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div class="ansi-escaped-output">
+<pre>`geom_smooth()` using formula = 'y ~ x'</pre>
+</div>
+</div>
+</div>
+<p>Ahhh, so SAT may predict whether students will graduate within 6 years, with a 0.74 correlation coefficient. Lets try with a real statistical test via linear regression</p>
+<div id="22640684" class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>summary(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+lm(formula = C150_4 ~ SAT_AVG, data = admin_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46453 -0.04305  0.02926  0.07640  0.30244 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -6.383e-01  6.479e-02  -9.852   &lt;2e-16 ***
+SAT_AVG      1.040e-03  5.493e-05  18.940   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.133 on 285 degrees of freedom
+Multiple R-squared:  0.5573,    Adjusted R-squared:  0.5557 
+F-statistic: 358.7 on 1 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>scaling for interpretability</p>
+<div id="95bd277a" class="cell" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>admin_df$SAT_z <span class="op">&lt;-</span> scale(admin_df$SAT_AVG)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>model_z <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_z, data <span class="op">=</span> admin_df)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>summary(model_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>
+Call:
+lm(formula = C150_4 ~ SAT_z, data = admin_df)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.46453 -0.04305  0.02926  0.07640  0.30244 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 0.579740   0.007853   73.82   &lt;2e-16 ***
+SAT_z       0.148996   0.007867   18.94   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.133 on 285 degrees of freedom
+Multiple R-squared:  0.5573,    Adjusted R-squared:  0.5557 
+F-statistic: 358.7 on 1 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>When SAT scores are standardized, a one–standard deviation increase in a school’s average SAT score is associated with an approximately 15 percentage-point increase in six-year completion rates (p &lt; 0.001). One standard deviation is about 150 SAT score points.</p>
+<p>Let’s try making a choropleth map of the admissions rates</p>
+<div id="1d92ef7f" class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>library(sf)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>library(mapview)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>library(rnaturalearth)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>library(rnaturalearthdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4e9a2fd1" class="cell" data-execution_count="102">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("rnaturalearthhires",</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#repos = "https://ropensci.r-universe.dev")</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> ne_states(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  country <span class="op">=</span> <span class="st">"United States of America"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  returnclass <span class="op">=</span> <span class="st">"sf"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(postal <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f17fa7a4" class="cell" data-execution_count="118">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#joining the states data</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>admin_state <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(<span class="op">!</span><span class="kw">is</span>.na(ADM_RATE), <span class="op">!</span><span class="kw">is</span>.na(STABBR)) <span class="op">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  group_by(STABBR) <span class="op">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    avg_adm_rate <span class="op">=</span> mean(ADM_RATE, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    n_schools <span class="op">=</span> n(),</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>states_map <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  left_join(admin_state, by <span class="op">=</span> c(<span class="st">"postal"</span> <span class="op">=</span> <span class="st">"STABBR"</span>)) <span class="op">|&gt;</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  select(postal, avg_adm_rate, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7112b332" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ggplot(states_map) <span class="op">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  geom_sf(aes(fill <span class="op">=</span> avg_adm_rate), color <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  scale_fill_viridis_c(name <span class="op">=</span> <span class="st">"Acceptance Rate"</span>) <span class="op">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  theme_minimal() <span class="op">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  labs(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Average College Admission Rates by State"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>That makes me happy, but we’re not going to actually use it in the report, unfortunately</p>
+<p>Lets see which schools appear on the test-free and test-optional list in 2026! https://fairtest.org/test-optional-list/</p>
+<div id="e99d4d21" class="cell" data-execution_count="136">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets load that csv</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> read_csv(<span class="st">"testoptionallist.csv"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(State <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>institutions <span class="op">&lt;-</span> admin_df$INSTNM</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(Institution_Name <span class="op">%</span><span class="kw">in</span><span class="op">%</span> institutions)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> select(<span class="op">-</span>Policy_Details, <span class="op">-</span>Link_to_policy, <span class="op">-</span>Control_of_institution)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>head(tests_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">2089</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">8</span>
+
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+
+<span class="ansi-bold">Delimiter:</span> ","
+
+<span class="ansi-red-fg">chr</span> (7): Institution_Name, State, Policy_2026, Is_policy_temporary, Link_to_...
+
+<span class="ansi-green-fg">num</span> (1): Policy_Details
+
+
+
+<span class="ansi-cyan-fg">ℹ</span> Use `spec()` to retrieve the full column specification for this data.
+
+<span class="ansi-cyan-fg">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div class="ansi-escaped-output">
+<pre><span style="color:rgb(148,148,148)"># A tibble: 6 × 5</span>
+  Institution_Name    State Policy_2026 Is_policy_temporary Pct_enroll_no_scores
+  <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span> <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>       <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               
+<span style="color:rgb(188,188,188)">1</span> Abraham Baldwin Ag… GA    Test Optio… Yes                 37%                 
+<span style="color:rgb(188,188,188)">2</span> Agnes Scott College GA    Test Optio… No                  44%                 
+<span style="color:rgb(188,188,188)">3</span> Allegheny College   PA    Test Optio… No                  68%                 
+<span style="color:rgb(188,188,188)">4</span> Alvernia University PA    Test Optio… Yes                 92%                 
+<span style="color:rgb(188,188,188)">5</span> American University DC    Test Optio… No                  58%                 
+<span style="color:rgb(188,188,188)">6</span> Anderson University SC    Test Optio… Unannounced         100%                </pre>
+</div>
+</div>
+</div>
+<p>That dataset shows the schools that have test optional policies for students applying for Fall 2026. That is the majority of our list! Now we need to join this back to the other dataset and fill in the missing values</p>
+<div id="55ff687f" class="cell" data-execution_count="202">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  left_join(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    tests_df, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    by <span class="op">=</span> c(<span class="st">"INSTNM"</span> <span class="op">=</span> <span class="st">"Institution_Name"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span> select(<span class="op">-</span>State)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    Policy_2026 <span class="op">=</span> replace_na(Policy_2026, <span class="st">"Test Required"</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> <span class="im">as</span>.numeric(gsub(<span class="st">"%"</span>, <span class="st">""</span>, Pct_enroll_no_scores)) <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> replace_na(Pct_enroll_no_scores, <span class="dv">0</span>)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    Is_policy_temporary <span class="op">=</span> replace_na(Is_policy_temporary, <span class="st">"No"</span>)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>write_csv(admin_test_df, <span class="st">"admin_test_full.csv"</span>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>colnames(admin_test_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code> [1] "UNITID"               "INSTNM"               "CITY"                
+ [4] "STABBR"               "ZIP"                  "HIGHDEG"             
+ [7] "ST_FIPS"              "LATITUDE"             "LONGITUDE"           
+[10] "LOCALE"               "ADM_RATE"             "SAT_AVG"             
+[13] "C150_4"               "UGDS_MEN"             "UGDS_WOMEN"          
+[16] "Policy_2026"          "Is_policy_temporary"  "Pct_enroll_no_scores"</code></pre>
+</div>
+</div>
+<div id="3bdb5115" class="cell" data-execution_count="200">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_counts <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  count(Policy_2026) <span class="op">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  mutate(pct <span class="op">=</span> n <span class="op">/</span> <span class="bu">sum</span>(n) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ggplot(df_counts, aes(x <span class="op">=</span> Policy_2026, y <span class="op">=</span> pct, fill <span class="op">=</span> Policy_2026 <span class="op">==</span> <span class="st">"Test Optional"</span>)) <span class="op">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"identity"</span>, width<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  geom_text(aes(label <span class="op">=</span> paste0(<span class="bu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>            vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, size <span class="op">=</span> <span class="dv">6</span>) <span class="op">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  scale_fill_manual(values <span class="op">=</span> c(<span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"grey70"</span>, <span class="st">"TRUE"</span> <span class="op">=</span> sat_blue),</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>                    guide <span class="op">=</span> <span class="st">"none"</span>) <span class="op">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  labs(</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Admissions Test Policies in Nearby Schools for Fall 2026"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="st">"Admissions Testing Requirement"</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="st">"Percent of Nearby Schools"</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">+</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="239d1937" class="cell" data-execution_count="204">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#testing plotly charts</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("plotly")</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>library(plotly)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#fitting a linear model</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict values along the range of SAT_AVG</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>sat_range <span class="op">&lt;-</span> seq(<span class="bu">min</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                 <span class="bu">max</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                 length.out <span class="op">=</span> <span class="dv">100</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">&lt;-</span> data.frame(</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  SAT_AVG <span class="op">=</span> sat_range,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  C150_4 <span class="op">=</span> predict(lm_fit, newdata <span class="op">=</span> data.frame(SAT_AVG <span class="op">=</span> sat_range))</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">&lt;-</span> plot_ly(admin_df, </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>               <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'markers'</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>               marker <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> sat_blue),</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>               name <span class="op">=</span> <span class="st">'Schools'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  add_trace(data <span class="op">=</span> pred_df,</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'lines'</span>,</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> <span class="st">'steelblue3'</span>, width <span class="op">=</span> <span class="dv">2</span>),</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> <span class="st">'Linear Trend'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  layout(title <span class="op">=</span> <span class="bu">list</span>(text <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>                      font <span class="op">=</span> <span class="bu">list</span>(size <span class="op">=</span> <span class="dv">16</span>)),</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>         xaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>),</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>         yaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who Graduate in 6 Years"</span>,</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>                      tickformat <span class="op">=</span> <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,56 +1,3 @@
----
-title: "To Test, or Not to Test?"
-subtitle: "DSAN 5900 Homework 1"
-authors:
-  - name: Kylie King
-    email: kk1543@georgetown.edu
-    affiliation: Georgetown University
-    corresponding: true
-df-print: kable
-bibliography: GIS_Manuscript.bib
-title-block-banner: '#27b9f8ff'
-title-block-banner-color: "black"
-format:
-  html:
-    df-print: kable
-  pdf:
-    # https://quarto.org/docs/reference/formats/pdf.html
-    link-citations: true
-prefer-html: true
----
-
-## Introduction
-
-We're going to start with the story of my SAT experience when we give the presentation.
-https://progresslearning.com/news-blog/colleges-dropping-reinstating-act-sat-requirements/
-https://www.newamerica.org/education-policy/edcentral/the-sats-not-quite-comeback/
-https://www.usnews.com/opinion/articles/2025-10-22/college-testing-act-sat-admissions-meritocracy
-https://www.timesnewspapers.com/webster-kirkwoodtimes/sat-act-making-comeback-for-college-admissions/article_77a88f3e-34ab-49c4-b075-58ca91a5ca30.html
-
-Pretend that you are a lead Data Scientist with an educational
-institution.
-▪ Your audience are VPs, directors, deans, managers, etc.
-▪ It is your job to use the data, evaluate the data and visualize the
-data.
-• Use Vis method of your choice, more than 1 is ok
-▪ It is also your job to use your data analysis results to
-communicate the information within the data
-▪ Your presentation tells a story!
-• It has the beginning, middle, and end
-• Use everything that we already learned
-
-
-Something about how during COVID-19, SAT requirements for college applications were removed or turned optional. I should find a news article about how they are slowly coming back.
-
-We should also have a paragraph about what they're supposed to do, why colleges want standardized testing, and stuff like that.
-
-Then we look at some of the numbers and see if high SAT requirements have anything to do with the percent of students who complete their degrees.
-
-
-## Exploratory Data Analysis (EDA)
-
-Here we plot the base GIS objects we're analyzing: the location of each **capital city** (in purple) and each **population centroid** (in yellow).
-
 ```{r}
 #| label: imports
 library(tidyverse) |> suppressPackageStartupMessages()
@@ -58,13 +5,54 @@ library(plotly) |> suppressPackageStartupMessages()
 library(colorspace) |> suppressPackageStartupMessages()
 dark_steelblue <- darken("steelblue4", 0.2)
 sat_blue <- '#009bdb'
+sat_grey <- "#96999aff"
+
+theme_eda <- theme(
+  # Overall text
+  text = element_text(family = "Helvetica", color = "black"),
+  
+  # Plot background
+  plot.background = element_rect(fill = "white", color = NA),
+  panel.background = element_rect(fill = "grey98", color = NA),
+  
+  # Gridlines
+  panel.grid.major = element_line(color = "grey85"),
+  panel.grid.minor = element_line(color = "grey90"),
+  
+  # Titles
+  plot.title = element_text(size = 20, face = "bold", color = dark_steelblue, hjust = 0.5, margin = margin(b = 10)),
+  plot.subtitle = element_text(size = 14, color = "grey30", hjust = 0.5, margin = margin(b = 10)),
+  
+  # Axis
+  axis.title = element_text(size = 14, face = "bold", color = dark_steelblue),
+  axis.text = element_text(size = 12, color = "grey20"),
+  axis.ticks = element_line(color = "grey70"),
+  
+  # Legend
+  legend.background = element_rect(fill = "grey98", color = NA),
+  legend.key = element_rect(fill = "grey98"),
+  legend.title = element_text(size = 14, face = "bold", color = dark_steelblue),
+  legend.text = element_text(size = 12, color = "grey20"),
+  legend.position = "top",
+  legend.key.size = unit(1.2, "lines"),
+  
+  # Facets
+  strip.background = element_rect(fill = "steelblue3", color = NA),
+  strip.text = element_text(size = 14, face = "bold", color = "white"),
+  
+  # Margins
+  plot.margin = margin(10, 10, 10, 10)
+)
+
+# Apply globally
+theme_set(theme_eda)
 
 ```
 
 ```{r}
 #| label: loading_data
-admin_df <- read_csv("data/cleaned_admin_df.csv")
-admin_test_df <- read_csv("data/admin_test_full.csv")
+admin_df <- read_csv("cleaned_admin_df.csv")
+admin_test_df <- read_csv("admin_test_full.csv")
 df_counts <- admin_test_df |>
   count(Policy_2026) |>
   mutate(pct = n / sum(n) * 100)
@@ -73,6 +61,8 @@ df_counts <- admin_test_df |>
 ```{r}
 #| label: testing charts
 #testing plotly charts
+
+#fitting a linear model
 
 fig <- plot_ly(admin_df, 
                x = ~SAT_AVG, y = ~C150_4,
@@ -121,9 +111,13 @@ fig <- plot_ly(admin_df,
 
 ```
 
+
 ```{r}
 fig
 ```
+
+
+and a static bar chart
 
 ```{r}
 fig <- plot_ly(
