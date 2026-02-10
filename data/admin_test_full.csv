@@ -1,0 +1,288 @@
+UNITID,INSTNM,CITY,STABBR,ZIP,HIGHDEG,ST_FIPS,LATITUDE,LONGITUDE,LOCALE,ADM_RATE,SAT_AVG,C150_4,UGDS_MEN,UGDS_WOMEN,Policy_2026,Is_policy_temporary,Pct_enroll_no_scores
+130934,Delaware State University,Dover,DE,19901,4,10,39.187173,-75.54053,13,0.6167,984,0.3866,0.3501,0.6499,Test Optional,Unannounced,0.62
+130943,University of Delaware,Newark,DE,19716,4,10,39.679577,-75.752822,21,0.6511,1297,0.7878,0.4014,0.5986,Test Optional,Unannounced,0.71
+131159,American University,Washington,DC,20016-8001,4,11,38.936005,-77.088875,11,0.4738,1392,0.7849,0.3645,0.6355,Test Optional,No,0.58
+131450,Gallaudet University,Washington,DC,20002-3695,4,11,38.907371,-76.993675,11,0.6094,857,0.4656,0.4812,0.5188,Test Required,No,0
+131469,George Washington University,Washington,DC,20052,4,11,38.89923,-77.048363,11,0.4354,1433,0.8518,0.3678,0.6322,Test Optional,No,0.54
+131496,Georgetown University,Washington,DC,20057-0001,4,11,38.908809,-77.073463,11,0.1308,1494,0.943,0.415,0.585,Test Required,No,0
+131520,Howard University,Washington,DC,20059,4,11,38.922392,-77.018966,11,0.3489,1205,0.689,0.273,0.727,Test Optional,Yes,0.56
+132408,Baptist University of Florida,Graceville,FL,32440,4,12,30.962708,-85.503931,42,0.641,1045,0.6923,0.5242,0.4758,Test Required,No,0
+132602,Bethune-Cookman University,Daytona Beach,FL,32114-3099,4,12,29.207195,-81.032946,13,0.9985,913,0.2783,0.3666,0.6334,Test Optional,Unannounced,0.24
+132657,Lynn University,Boca Raton,FL,33431-5598,4,12,26.385985,-80.122806,13,0.7395,1136,0.5269,0.4957,0.5043,Test Optional,No,0.83
+132879,Johnson University Florida,Kissimmee,FL,34744,3,12,28.302547,-81.363053,21,0.2332,940,0.2364,0.7426,0.2574,Test Required,No,0
+132903,University of Central Florida,Orlando,FL,32816,4,12,28.602159,-81.200889,21,0.3952,1277,0.7515,0.4573,0.5427,Test Required,No,0
+133492,Eckerd College,Saint Petersburg,FL,33711-4700,3,12,27.715798,-82.687043,11,0.7869,1256,0.6756,0.2949,0.7051,Test Optional,No,0.41
+133553,Embry-Riddle Aeronautical University-Daytona Beach,Daytona Beach,FL,32114-3900,4,12,29.189903,-81.048367,13,0.6628,1256,0.6736,0.7301,0.2699,Test Optional,Unannounced,0.14
+133650,Florida Agricultural and Mechanical University,Tallahassee,FL,32307,4,12,30.428504,-84.290226,12,0.2112,1100,0.5194,0.3371,0.6629,Test Required,No,0
+133669,Florida Atlantic University,Boca Raton,FL,33431-0991,4,12,26.372421,-80.102978,13,0.7344,1119,0.6433,0.4286,0.5714,Test Required,No,0
+133711,Flagler College,Saint Augustine,FL,32084,4,12,29.892733,-81.314887,23,0.7809,1099,0.5589,0.3211,0.6789,Test Optional,No,0.63
+133809,Florida College,Temple Terrace,FL,33617,3,12,28.034936,-82.383289,21,0.6645,1068,0.5064,0.489,0.511,Test Required,No,0
+133881,Florida Institute of Technology,Melbourne,FL,32901-6975,4,12,28.065773,-80.623123,13,0.6253,1213,0.6545,0.673,0.327,Test Required,No,0
+133951,Florida International University,Miami,FL,33199,4,12,25.75732,-80.373928,21,0.5884,1154,0.7387,0.4419,0.5581,Test Required,No,0
+134079,Florida Southern College,Lakeland,FL,33801-5698,4,12,28.032443,-81.948203,12,0.5907,1263,0.6933,0.3682,0.6318,Test Optional,Unannounced,0.36
+134097,Florida State University,Tallahassee,FL,32306-1037,4,12,30.443147,-84.295064,12,0.2538,1323,0.8299,0.4347,0.5653,Test Required,No,0
+134130,University of Florida,Gainesville,FL,32611,4,12,29.64629,-82.347911,12,0.2403,1397,0.9151,0.4446,0.5554,Test Required,No,0
+134945,Jacksonville University,Jacksonville,FL,32211-3394,4,12,30.353227,-81.60458,11,0.5729,1211,0.5697,0.4035,0.5965,Test Optional,Unannounced,0.52
+135726,University of Miami,Coral Gables,FL,33146,4,12,25.72126,-80.278662,21,0.1851,1416,0.8423,0.4603,0.5397,Test Required,No,0
+136172,University of North Florida,Jacksonville,FL,32224-7699,4,12,30.27194,-81.509144,11,0.6227,1115,0.6818,0.4243,0.5757,Test Required,No,0
+136215,Nova Southeastern University,Fort Lauderdale,FL,33328-2004,4,12,26.082288,-80.249891,21,0.7267,1182,0.6434,0.2822,0.7178,Test Optional,Yes,0.33
+136330,Palm Beach Atlantic University,West Palm Beach,FL,33401,4,12,26.7044,-80.05247,12,0.8832,1101,0.5895,0.3486,0.6514,Test Optional,Unannounced,0.41
+136950,Rollins College,Winter Park,FL,32789-4499,4,12,28.592787,-81.349239,21,0.4056,1304,0.7689,0.4047,0.5953,Test Optional,No,0.48
+137351,University of South Florida,Tampa,FL,33620-9951,4,12,28.061458,-82.413232,11,0.4096,1235,0.7458,0.4364,0.5636,Test Required,No,0
+137546,Stetson University,DeLand,FL,32723,4,12,29.035475,-81.300746,13,0.8643,1208,0.628,0.4311,0.5689,Test Optional,Unannounced,0.67
+137953,Trinity Baptist College,Jacksonville,FL,32221,4,12,30.311171,-81.79626,11,0.625,1007,0.4423,0.6006,0.3994,Test Optional,Unannounced,-0.01
+137962,Trinity College of Florida,Trinity,FL,34655-4401,3,12,28.194732,-82.678318,21,0.963,905,0,0.5187,0.4813,Test Optional,Unannounced,0.08
+138275,Warner University,Lake Wales,FL,33859-8797,4,12,27.825751,-81.599972,41,0.4779,937,0.3492,0.5126,0.4874,Test Optional,Unannounced,0.4
+138354,University of West Florida,Pensacola,FL,32514-5750,4,12,30.549076,-87.218511,41,0.5687,1137,0.6176,0.4263,0.5737,Test Required,No,0
+138558,Abraham Baldwin Agricultural College,Tifton,GA,31793-2601,3,13,31.481889,-83.528281,32,0.7716,994,0.2912,0.4055,0.5945,Test Optional,Yes,0.37
+138600,Agnes Scott College,Decatur,GA,30030-3770,4,13,33.769268,-84.295459,21,0.6731,1296,0.7052,0,1,Test Optional,No,0.44
+138868,Point University,West Point,GA,31833,4,13,32.87912,-85.184931,32,0.6751,1059,0.4044,0.4597,0.5403,Test Optional,Unannounced,0.82
+139144,Berry College,Mount Berry,GA,30149,4,13,34.290414,-85.189202,23,0.6185,1223,0.7391,0.3732,0.6268,Test Optional,Unannounced,0.57
+139199,Brenau University,Gainesville,GA,30501-3668,4,13,34.303117,-83.821513,13,0.8696,1087,0.3536,0.0754,0.9246,Test Optional,No,1
+139250,College of Coastal Georgia,Brunswick,GA,31520-3644,3,13,31.181983,-81.486169,13,0.9851,1001,0.2556,0.2899,0.7101,Test Optional,Yes,0.78
+139311,Clayton  State University,Morrow,GA,30260-0285,4,13,33.594079,-84.328174,21,0.7059,973,0.3539,0.2991,0.7009,Test Optional,Yes,0.3
+139366,Columbus State University,Columbus,GA,31907-5645,4,13,32.50096,-84.94106,12,0.9924,994,0.4174,0.4165,0.5835,Test Optional,Yes,0.34
+139393,Covenant College,Lookout Mountain,GA,30750-4164,4,13,34.965161,-85.375066,21,0.8176,1254,0.7186,0.4685,0.5315,Test Required,No,0
+139658,Emory University,Atlanta,GA,30322,4,13,33.790183,-84.325512,11,0.111,1507,0.9176,0.429,0.571,Test Optional,Yes,0.35
+139719,Fort Valley State University,Fort Valley,GA,31030-4313,4,13,32.537595,-83.89537,31,0.628,864,0.4519,0.3451,0.6549,Test Optional,Yes,0.49
+139755,Georgia Institute of Technology-Main Campus,Atlanta,GA,30332-0530,4,13,33.77242,-84.394832,11,0.1646,1447,0.9228,0.6023,0.3977,Test Required,No,0
+139764,Georgia Southwestern State University,Americus,GA,31709-4693,4,13,32.054662,-84.217738,32,0.7716,998,0.3191,0.3156,0.6844,Test Optional,Yes,0.63
+139861,Georgia College & State University,Milledgeville,GA,31061,4,13,33.082787,-83.231962,32,0.8777,1150,0.6157,0.3545,0.6455,Test Required,No,0
+139931,Georgia Southern University,Statesboro,GA,30460-8126,4,13,32.426153,-81.784045,32,0.8963,1057,0.5205,0.4336,0.5664,Test Required,No,0
+139940,Georgia State University,Atlanta,GA,30303-3083,4,13,33.7527,-84.38667,11,0.6228,1149,0.5372,0.4056,0.5944,Test Required,No,0
+139959,University of Georgia,Athens,GA,30602,4,13,33.956262,-83.374039,12,0.372,1301,0.8716,0.4217,0.5783,Test Required,No,0
+139968,Gordon State College,Barnesville,GA,30204,3,13,33.04571,-84.154508,32,0.8678,950,0.1731,0.3436,0.6564,Test Optional,Yes,0.89
+140252,Life University,Marietta,GA,30060,4,13,33.932781,-84.514729,13,0.9381,994,0.3214,0.5201,0.4799,Test Optional,Unannounced,0.39
+140447,Mercer University,Macon,GA,31207,4,13,32.829134,-83.649392,12,0.6646,1280,0.7339,0.3554,0.6446,Test Optional,No,0.43
+140553,Morehouse College,Atlanta,GA,30314,3,13,33.745982,-84.414917,11,0.5139,1050,0.5267,0.9996,4e-4,Test Optional,No,0.81
+140696,Oglethorpe University,Atlanta,GA,30319-2797,3,13,33.875441,-84.333687,21,0.6006,1230,0.5392,0.3807,0.6193,Test Optional,Yes,0.7
+140818,Piedmont University,Demorest,GA,30535-0010,4,13,34.566042,-83.542126,32,0.9284,1074,0.4146,0.319,0.681,Test Required,No,0
+140951,Savannah College of Art and Design,Savannah,GA,31402-3146,4,13,32.072964,-81.09395,12,0.8368,1178,0.7048,0.2969,0.7031,Test Optional,No,0.62
+140988,Shorter University,Rome,GA,30165,4,13,34.257543,-85.196529,13,0.9693,1075,0.3708,0.472,0.528,Test Optional,Unannounced,0.68
+141060,Spelman College,Atlanta,GA,30314-4399,3,13,33.745279,-84.411527,11,0.3409,1184,0.761,0.071,0.929,Test Optional,Yes,0
+141167,Thomas University,Thomasville,GA,31792,4,13,30.815576,-83.963587,32,0.4316,1037,0.2778,0.4957,0.5043,Test Optional,Unannounced,0.21
+141185,Toccoa Falls College,Toccoa Falls,GA,30598,4,13,34.593414,-83.357617,32,0.6381,1155,0.4601,0.3927,0.6073,Test Optional,Unannounced,0.53
+141264,Valdosta State University,Valdosta,GA,31698,4,13,30.847402,-83.289282,13,0.8349,1037,0.4174,0.3307,0.6693,Test Optional,Yes,0.16
+141325,Wesleyan College,Macon,GA,31210-4462,4,13,32.876037,-83.715417,12,0.6207,905,0.6056,0,1,Test Optional,No,1
+141334,University of West Georgia,Carrollton,GA,30118-0001,4,13,33.573621,-85.097762,32,0.49370000000000003,1044,0.4272,0.3633,0.6367,Test Optional,Yes,0.05
+161873,University of Baltimore,Baltimore,MD,21201-5720,4,24,39.305834,-76.616591,11,0.8555,1060,0.4673,0.413,0.587,Test Optional,No,0.77
+162007,Bowie State University,Bowie,MD,20715-9465,4,24,39.018185,-76.759721,21,0.8354,935,0.3814,0.395,0.605,Test Optional,Yes,0.94
+162210,Washington Adventist University,Takoma Park,MD,20912,4,24,38.986349,-77.000608,21,0.4536,920,0.4,0.408,0.592,Test Optional,Unannounced,1
+162654,Goucher College,Baltimore,MD,21204-2794,4,24,39.410175,-76.594843,13,0.729,1225,0.6,0.3407,0.6593,Test Optional,No,0.71
+162928,Johns Hopkins University,Baltimore,MD,21218-2688,4,24,39.328977,-76.621595,11,0.0756,1553,0.9463,0.4593,0.5407,Test Required,No,0
+163046,Loyola University Maryland,Baltimore,MD,21210-2699,4,24,39.346358,-76.621872,11,0.7633,1292,0.8049,0.436,0.564,Test Optional,No,0.66
+163268,University of Maryland-Baltimore County,Baltimore,MD,21250,4,24,39.256686,-76.711607,21,0.7424,1299,0.7055,0.5418,0.4582,Test Optional,Yes,0.65
+163286,University of Maryland-College Park,College Park,MD,20742,4,24,38.988178,-76.944721,21,0.4484,1463,0.8862,0.507,0.493,Test Optional,Yes,0.45
+163295,Maryland Institute College of Art,Baltimore,MD,21217-4134,4,24,39.308792,-76.621033,11,0.7729,1207,0.7133,0.2343,0.7657,Test Optional,Unannounced,0.83
+163453,Morgan State University,Baltimore,MD,21251-0001,4,24,39.344161,-76.585565,11,0.8296,984,0.4161,0.3802,0.6198,Test Optional,No,0.68
+163462,Mount St. Mary's University,Emmitsburg,MD,21727-7799,4,24,39.681705,-77.351887,42,0.7186,1141,0.5802,0.4623,0.5377,Test Optional,No,0.76
+163851,Salisbury University,Salisbury,MD,21801-6862,4,24,38.34648,-75.604815,23,0.8863,1250,0.6745,0.4406,0.5594,Test Optional,No,0.82
+163912,St. Mary's College of Maryland,St. Mary's City,MD,20686,4,24,38.188047,-76.430994,41,0.7539,1232,0.6804,0.3946,0.6054,Test Optional,No,0.64
+163976,St. John's College,Annapolis,MD,21401,4,24,38.981598,-76.491359,21,0.4429,1381,0.6741,0.5061,0.4939,Test Optional,No,0.5
+164076,Towson University,Towson,MD,21252-0001,4,24,39.393622,-76.611164,13,0.828,1166,0.6762,0.4177,0.5823,Test Optional,Unannounced,0.77
+164155,United States Naval Academy,Annapolis,MD,21402-1300,3,24,38.980507,-76.481692,21,0.0936,1308,0.9185,0.7041,0.2959,Test Required,No,0
+164216,Washington College,Chestertown,MD,21620-1438,3,24,39.217329,-76.06878,32,0.6554,1274,0.7411,0.4348,0.5652,Test Optional,No,0.63
+197869,Appalachian State University,Boone,NC,28608,4,37,36.215536,-81.680583,32,0.8864,1187,0.7311,0.4378,0.5622,Test Optional,Yes,0.59
+197984,Belmont Abbey College,Belmont,NC,28012-1802,4,37,35.260651,-81.041315,22,0.9038,1082,0.4637,0.5337,0.4663,Test Optional,No,0.49
+197993,Bennett College,Greensboro,NC,27401-3239,3,37,36.067531,-79.77998,11,0.3361,890,0.2063,0,1,Test Optional,Unannounced,0.84
+198066,Brevard College,Brevard,NC,28712,4,37,35.236763,-82.729494,32,0.395,1064,0.3902,0.6132,0.3868,Test Optional,No,0.45
+198109,Cabarrus College of Health Sciences,Concord,NC,28025-3959,4,37,35.440038,-80.600824,12,0.4921,1020,0.4545,0.0814,0.9186,Test Required,No,0
+198215,Catawba College,Salisbury,NC,28144,4,37,35.691443,-80.482751,21,0.777,1136,0.5211,0.4827,0.5173,Test Optional,No,0.74
+198303,Chowan University,Murfreesboro,NC,27855,4,37,36.436258,-77.099141,43,0.7237,970,0.2852,0.616,0.384,Test Optional,Yes,0.84
+198385,Davidson College,Davidson,NC,28035,3,37,35.499767,-80.843979,21,0.1448,1448,0.9189,0.4687,0.5313,Test Optional,Unannounced,0.37
+198419,Duke University,Durham,NC,27708,4,37,36.001135,-78.937624,11,0.0678,1539,0.9583,0.4655,0.5345,Test Optional,Yes,0.14
+198464,East Carolina University,Greenville,NC,27858-4353,4,37,35.607186,-77.368291,13,0.9006,1143,0.6214,0.43120000000000003,0.5688,Test Optional,Yes,0
+198516,Elon University,Elon,NC,27244-2010,4,37,36.104148,-79.50344,22,0.6731,1222,0.8296,0.4121,0.5879,Test Optional,No,0.97
+198543,Fayetteville State University,Fayetteville,NC,28301-4298,4,37,35.073641,-78.891696,12,0.7989,972,0.352,0.3104,0.6896,Test Optional,Yes,0.84
+198561,Gardner-Webb University,Boiling Springs,NC,28017-0997,4,37,35.24732,-81.668141,42,0.8702,1146,0.6168,0.3627,0.6373,Test Optional,Unannounced,0.62
+198613,Guilford College,Greensboro,NC,27410-4108,4,37,36.094233,-79.887737,11,0.8376,1120,0.4766,0.4847,0.5153,Test Optional,No,0.68
+198695,High Point University,High Point,NC,27268,4,37,35.972035,-79.994675,12,0.7683,1242,0.7,0.4535,0.5465,Test Optional,No,0.58
+198950,Meredith College,Raleigh,NC,27607-5298,4,37,35.799351,-78.689995,11,0.7466,1224,0.6497,0,1,Test Optional,Unannounced,0.62
+198969,Methodist University,Fayetteville,NC,28311-1420,4,37,35.135058,-78.874426,12,0.752,1201,0.4015,0.5551,0.4449,Test Optional,Unannounced,0.74
+199069,University of Mount Olive,Mount Olive,NC,28365-0919,4,37,35.208166,-78.069388,42,0.7775,1020,0.4746,0.3387,0.6613,Test Optional,Yes,0
+199102,North Carolina A & T State University,Greensboro,NC,27411,4,37,36.07282,-79.773375,11,0.4617,1048,0.5527,0.3736,0.6264,Test Optional,Yes,0.46
+199111,University of North Carolina Asheville,Asheville,NC,28804-8510,3,37,35.617068,-82.565392,13,0.9389,1247,0.5495,0.4122,0.5878,Test Required,No,0
+199120,University of North Carolina at Chapel Hill,Chapel Hill,NC,27599,4,37,35.911769,-79.050969,13,0.1874,1454,0.9207,0.3925,0.6075,Test Optional,Yes,0.42
+199139,University of North Carolina at Charlotte,Charlotte,NC,28223-0001,4,37,35.306022,-80.730919,11,0.8021,1202,0.6771,0.516,0.484,Test Optional,Yes,0.24
+199148,University of North Carolina at Greensboro,Greensboro,NC,27402-6170,4,37,36.068236,-79.809414,11,0.8983,1187,0.579,0.3357,0.6643,Test Optional,Yes,0.86
+199157,North Carolina Central University,Durham,NC,27707,4,37,35.974237,-78.898602,11,0.9049,1023,0.4597,0.2957,0.7043,Test Optional,Yes,0.97
+199184,University of North Carolina School of the Arts,Winston Salem,NC,27127-2738,4,37,36.076183,-80.235672,11,0.331,1250,0.7919,0.3836,0.6164,Test Optional,Yes,0.75
+199193,North Carolina State University at Raleigh,Raleigh,NC,27695-7001,4,37,35.785111,-78.674517,11,0.3985,1380,0.8464,0.5016,0.4984,Test Optional,Yes,0.48
+199218,University of North Carolina Wilmington,Wilmington,NC,28403-5963,4,37,34.225223,-77.875527,12,0.7401,1262,0.7073,0.3598,0.6402,Test Optional,Yes,0.78
+199272,William Peace University,Raleigh,NC,27604-1194,3,37,35.789139,-78.637697,11,0.9736,1198,0.4433,0.5159,0.4841,Test Optional,Unannounced,0.77
+199412,Queens University of Charlotte,Charlotte,NC,28274,4,37,35.189051,-80.833509,11,0.6768,1223,0.6588,0.3744,0.6256,Test Optional,No,0.54
+199607,Salem College,Winston-Salem,NC,27101,4,37,36.086271000000004,-80.241297,11,0.8703,1168,0.5625,0.0077,0.9923,Test Optional,No,1
+199759,Southeastern Baptist Theological Seminary,Wake Forest,NC,27587-1889,4,37,35.981858,-78.513755,21,0.7661,1090,0.4643,0.6588,0.3412,Test Optional,No,0.07
+199847,Wake Forest University,Winston-Salem,NC,27106,4,37,36.133609,-80.277446,11,0.21560000000000001,1469,0.9087,0.4462,0.5538,Test Optional,No,0
+199865,Warren Wilson College,Swannanoa,NC,28778-2099,4,37,35.610328,-82.442619,41,0.7762,1290,0.4315,0.3431,0.6569,Test Optional,No,0.83
+199962,Wingate University,Wingate,NC,28174-0159,4,37,34.986064,-80.44305,21,0.8499,1083,0.4678,0.4228,0.5772,Test Optional,Unannounced,0.73
+199999,Winston-Salem State University,Winston-Salem,NC,27110-0001,4,37,36.089554,-80.225033,11,0.6855,946,0.4855,0.2547,0.7453,Test Optional,Yes,0.76
+200004,Western Carolina University,Cullowhee,NC,28723-9646,4,37,35.308979,-83.186258,32,0.8666,1151,0.5908,0.4275,0.5725,Test Optional,Yes,0.63
+210492,Bryn Athyn College of the New Church,Bryn Athyn,PA,19009-0717,3,42,40.134393,-75.060808,21,0.742,1174,0.4632,0.5128,0.4872,Test Optional,No,0.61
+210669,Allegheny College,Meadville,PA,16335-3902,3,42,41.64869,-80.147168,32,0.5853,1292,0.6653,0.4839,0.5161,Test Optional,No,0.68
+210739,DeSales University,Center Valley,PA,18034-9568,4,42,40.539091,-75.375608,21,0.7858,1199,0.7102,0.3535,0.6465,Test Optional,Unannounced,0.66
+210775,Alvernia University,Reading,PA,19607-1799,4,42,40.310028,-75.936754,13,0.6232,1160,0.5849,0.3692,0.6308,Test Optional,Yes,0.92
+211088,Arcadia University,Glenside,PA,19038-3295,4,42,40.092606,-75.163876,21,0.7919,1210,0.6401,0.3719,0.6281,Test Optional,Unannounced,0.74
+211273,Bryn Mawr College,Bryn Mawr,PA,19010,4,42,40.02736,-75.313223,21,0.3106,1404,0.8559,0,1,Test Optional,No,0.46
+211291,Bucknell University,Lewisburg,PA,17837,4,42,40.954317,-76.882616,32,0.3201,1389,0.8623,0.4717,0.5283,Test Optional,Yes,0.5
+211352,Cabrini University,Radnor,PA,19087-3698,4,42,40.056355,-75.375263,21,0.6919,1145,0.5052,0.4186,0.5814,Test Required,No,0
+211440,Carnegie Mellon University,Pittsburgh,PA,15213-3890,4,42,40.44357,-79.941993,11,0.114,1545,0.9252,0.4997,0.5003,Test Optional,Yes,0.29
+211468,Cedar Crest College,Allentown,PA,18104-6196,4,42,40.586318,-75.519221,12,0.9913,1070,0.5822,0.0735,0.9265,Test Optional,Yes,0.83
+211556,Chatham University,Pittsburgh,PA,15232,4,42,40.448432,-79.926083,11,0.7011,1205,0.662,0.3123,0.6877,Test Optional,No,0.53
+211981,Delaware Valley University,Doylestown,PA,18901-2697,4,42,40.298659,-75.158452,21,0.92490000000000006,1180,0.522,0.3832,0.6168,Test Optional,No,0.78
+212054,Drexel University,Philadelphia,PA,19104,4,42,39.955217,-75.190051,11,0.7753,1337,0.7712,0.5116,0.4884,Test Optional,No,0.52
+212106,Duquesne University,Pittsburgh,PA,15282,4,42,40.43589,-79.993123,11,0.7885,1257,0.7555,0.3702,0.6298,Test Optional,No,0.65
+212115,East Stroudsburg University of Pennsylvania,East Stroudsburg,PA,18301-2999,4,42,40.99599,-75.173905,31,0.9288,1078,0.4383,0.4383,0.5617,Test Optional,No,0.75
+212197,Elizabethtown College,Elizabethtown,PA,17022-2298,4,42,40.149236,-76.593224,21,0.7677,1190,0.7707,0.4121,0.5879,Test Optional,Unannounced,0.58
+212577,Franklin and Marshall College,Lancaster,PA,17604-3003,3,42,40.048045,-76.319037,13,0.3183,1394,0.8602,0.4732,0.5268,Test Optional,No,0.63
+212674,Gettysburg College,Gettysburg,PA,17325,4,42,39.836597,-77.236792,31,0.4751,1350,0.8273,0.4889,0.5111,Test Optional,No,0.6
+212805,Grove City College,Grove City,PA,16127-2104,4,42,41.1558,-80.081481,32,0.734,1261,0.7972,0.5191,0.4809,Test Optional,Yes,0.26
+212832,Gwynedd Mercy University,Gwynedd Valley,PA,19437-0901,4,42,40.19774,-75.237224,21,0.9361,1110,0.5849,0.2629,0.7371,Test Optional,No,0.66
+212911,Haverford College,Haverford,PA,19041-1392,3,42,40.007452,-75.305207,21,0.1291,1498,0.894,0.4335,0.5665,Test Optional,No,0.38
+212984,Holy Family University,Philadelphia,PA,19114-2009,4,42,40.060581,-74.986451,11,0.7422,1030,0.6039,0.2885,0.7115,Test Optional,Unannounced,0.88
+213011,Immaculata University,Immaculata,PA,19345,4,42,40.027981,-75.570711,21,0.7845,1163,0.6447,0.2846,0.7154,Test Optional,No,0.71
+213020,Indiana University of Pennsylvania-Main Campus,Indiana,PA,15705-1098,4,42,40.617531,-79.159332,32,0.912,1052,0.5239,0.3807,0.6193,Test Optional,Unannounced,0.58
+213251,Juniata College,Huntingdon,PA,16652-2196,4,42,40.500523,-78.017292,32,0.7165,1185,0.6891,0.4809,0.5191,Test Optional,No,0.69
+213303,Keystone College,La Plume,PA,18440-0200,4,42,41.558969,-75.777456,21,0.796,1030,0.4116,0.4989,0.5011,Test Optional,No,0.87
+213321,King's College,Wilkes-Barre,PA,18711-0801,4,42,41.250097,-75.879822,13,0.932,1150,0.601,0.526,0.474,Test Optional,No,0.63
+213349,Kutztown University of Pennsylvania,Kutztown,PA,19530-0730,4,42,40.513561,-75.783933,31,0.9483,1170,0.5411,0.4324,0.5676,Test Required,No,0
+213358,La Roche University,Pittsburgh,PA,15237-5898,4,42,40.568615,-80.014851,21,0.7761,1140,0.5766,0.4224,0.5776,Test Optional,Unannounced,0.72
+213385,Lafayette College,Easton,PA,18042-1768,3,42,40.69956,-75.209786,21,0.3147,1419,0.8805,0.5109,0.4891,Test Optional,Yes,0.47
+213400,Lancaster Bible College,Lancaster,PA,17601-5036,4,42,40.075347,-76.287761,21,0.9519,1161,0.7143,0.4705,0.5295,Test Optional,Unannounced,0.53
+213507,Lebanon Valley College,Annville,PA,17003-1400,4,42,40.330604,-76.514431,23,0.7453,1190,0.7251,0.4419,0.5581,Test Optional,No,0.55
+213543,Lehigh University,Bethlehem,PA,18015,4,42,40.606822,-75.380236,13,0.2926,1432,0.8921,0.5247,0.4753,Test Optional,No,0.5
+213598,Lincoln University,Lincoln University,PA,19352-0999,4,42,39.807723,-75.926458,21,0.7837,984,0.5212,0.34,0.66,Test Optional,Unannounced,0.6
+213668,Lycoming College,Williamsport,PA,17701-5192,3,42,41.24666,-77,13,0.6788,1169,0.5957,0.4776,0.5224,Test Optional,No,0.49
+213774,Manor College,Jenkintown,PA,19046-3399,3,42,40.08714,-75.104786,21,0.9576,820,0.2442,0.2792,0.7208,Test Optional,Unannounced,0
+213826,Marywood University,Scranton,PA,18509-1598,4,42,41.434587,-75.634142,13,0.8371,1153,0.7252,0.3537,0.6463,Test Optional,Yes,0.6
+213996,Messiah University,Mechanicsburg,PA,17055,4,42,40.156579,-76.988269,21,0.7848,1214,0.785,0.4042,0.5958,Test Optional,Unannounced,0.34
+214041,Millersville University of Pennsylvania,Millersville,PA,17551-0302,4,42,40.000337,-76.357381,21,0.8941,1120,0.544,0.4244,0.5756,Test Optional,Unannounced,0.99
+214148,Moore College of Art and Design,Philadelphia,PA,19103-1179,4,42,39.957078,-75.172105,11,0.6051,1303,0.6344,0,1,Test Optional,Unannounced,0.65
+214157,Moravian University,Bethlehem,PA,18018-6650,4,42,40.630947,-75.383638,13,0.54,1154,0.7107,0.3624,0.6376,Test Optional,No,0.67
+214166,Mount Aloysius College,Cresson,PA,16630-1999,4,42,40.459679,-78.600898,31,0.9041,1034,0.5556,0.2823,0.7177,Test Optional,Unannounced,0.84
+214175,Muhlenberg College,Allentown,PA,18104,4,42,40.596416,-75.508501999999993,12,0.6401,1327,0.8025,0.408,0.592,Test Optional,No,0.59
+214591,Pennsylvania State University-Penn State Erie-Behrend College,Erie,PA,16563-0001,4,42,42.119417,-79.983818,22,0.9571,1213,0.457,0.6334,0.3666,Test Optional,Yes,0.61
+214625,Pennsylvania State University-Penn State New Kensington,New Kensington,PA,15068-1765,3,42,40.551056,-79.697461,41,0.9331,1133,0.2443,0.617,0.383,Test Optional,Yes,0.74
+214634,Pennsylvania State University-Penn State Shenango,Sharon,PA,16146-1537,3,42,41.235131,-80.50924,31,0.9091,1170,0.2295,0.3793,0.6207,Test Optional,Yes,0.92
+214643,Pennsylvania State University-Penn State Wilkes-Barre,Dallas,PA,18627-0217,3,42,41.305602,-76.016151,41,0.9453,1145,0.1667,0.6331,0.3669,Test Optional,Yes,0.67
+214652,Pennsylvania State University-Penn State Scranton,Dunmore,PA,18512-1602,3,42,41.439843,-75.621401,21,0.9487,1190,0.3189,0.5542,0.4458,Test Optional,Yes,0.72
+214670,Pennsylvania State University-Penn State Lehigh Valley,Center Valley,PA,18034-8447,3,42,40.559201,-75.40267,21,0.9421,1212,0.1736,0.5931,0.4069,Test Optional,Yes,0.68
+214689,Pennsylvania State University-Penn State Altoona,Altoona,PA,16601-3777,3,42,40.541759,-78.409601,13,0.9731,1163,0.1784,0.539,0.461,Test Optional,Yes,0.66
+214698,Pennsylvania State University-Penn State Beaver,Monaca,PA,15061-2764,3,42,40.678271,-80.296316,21,0.922,1191,0.212,0.5662,0.4338,Test Optional,Yes,0.64
+214704,Pennsylvania State University-Penn State Berks,Reading,PA,19610-1016,3,42,40.358839,-75.97329,21,0.9713,1219,0.2441,0.5835,0.4165,Test Optional,Yes,0.62
+214713,Pennsylvania State University-Penn State Harrisburg,Middletown,PA,17057-4846,4,42,40.204253,-76.741216,21,0.9639,1218,0.2926,0.6208,0.3792,Test Optional,Yes,0.7
+214731,Pennsylvania State University-Penn State Brandywine,Media,PA,19063-5522,3,42,39.927123,-75.449704,21,0.9533,1211,0.2133,0.6281,0.3719,Test Optional,Yes,0.62
+214740,Pennsylvania State University-Penn State DuBois,DuBois,PA,15801-2549,3,42,41.127184,-78.751554,33,0.9252,1130,0.2901,0.5854,0.4146,Test Optional,Yes,0.72
+214759,Pennsylvania State University-Penn State Fayette- Eberly,Lemont Furnace,PA,15456-1025,3,42,39.946455,-79.659317,41,0.9166,1160,0.3352,0.4843,0.5157,Test Optional,Yes,0.71
+214768,Pennsylvania State University-Penn State Hazleton,Hazleton,PA,18202-8025,3,42,40.98396,-76.030975,23,0.9104,1200,0.1791,0.5689,0.4311,Test Optional,Yes,0.79
+214777,Pennsylvania State University-Main Campus,University Park,PA,16802-1503,4,42,40.7965,-77.862848,13,0.5422,1316,0.8568,0.5275,0.4725,Test Optional,Yes,0.55
+214786,Pennsylvania State University-Penn State Greater Allegheny,McKeesport,PA,15132-7644,3,42,40.345591,-79.827428,21,0.9466,1125,0.2743,0.6139,0.3861,Test Optional,Yes,0.73
+214795,Pennsylvania State University-Penn State Mont Alto,Mont Alto,PA,17237-9700,3,42,39.842212,-77.541797,41,0.903,1170,0.2512,0.4004,0.5996,Test Optional,Yes,0.69
+214801,Pennsylvania State University-Penn State Abington,Abington,PA,19001-3918,3,42,40.117101,-75.110724,21,0.9203,1179,0.2222,0.5943,0.4057,Test Optional,Yes,0.7
+214810,Pennsylvania State University-Penn State Schuylkill,Schuylkill Haven,PA,17972-2202,3,42,40.640512,-76.166374,31,0.9105,1060,0.2069,0.3679,0.6321,Test Optional,Yes,0.85
+214829,Pennsylvania State University-Penn State York,York,PA,17403-3326,4,42,39.95283,-76.703486,22,0.922,1170,0.1143,0.6317,0.3683,Test Optional,Yes,0.58
+215062,University of Pennsylvania,Philadelphia,PA,19104-6303,4,42,39.950929,-75.19391,11,0.0587,1545,0.9681,0.4468,0.5532,Test Required,No,0
+215114,Cairn University-Langhorne,Langhorne,PA,19047-2990,4,42,40.165809,-74.909509,21,0.8356,1154,0.6516,0.4987,0.5013,Test Optional,Unannounced,1
+215266,University of Pittsburgh-Bradford,Bradford,PA,16701,3,42,41.943415,-78.673701,33,0.9081,1168,0.4344,0.4602,0.5398,Test Optional,Yes,0.61
+215275,University of Pittsburgh-Greensburg,Greensburg,PA,15601-5860,3,42,40.276447,-79.532676,21,0.9792,1172,0.3963,0.4327,0.5673,Test Optional,Yes,0.62
+215284,University of Pittsburgh-Johnstown,Johnstown,PA,15904,3,42,40.265957,-78.834163,23,0.959,1158,0.5345,0.5579,0.4421,Test Optional,No,0.41
+215293,University of Pittsburgh-Pittsburgh Campus,Pittsburgh,PA,15260,4,42,40.444387999999996,-79.953254,11,0.497,1371,0.8434,0.4211,0.5789,Test Optional,Yes,0.37
+215442,Point Park University,Pittsburgh,PA,15222-1984,4,42,40.438768,-80.002061,11,0.9788,1142,0.5956,0.356,0.644,Test Optional,No,0.68
+215743,Saint Francis University,Loretto,PA,15940,4,42,40.506734,-78.63904,42,0.7689,1151,0.7275,0.381,0.619,Test Optional,Unannounced,0.19
+215770,Saint Joseph's University - Philadelphia,Philadelphia,PA,19131-1395,4,42,39.994442,-75.238343,11,0.8639,1256,0.7983,0.4612,0.5388,Test Required,No,0
+215798,Saint Vincent College,Latrobe,PA,15650-2690,4,42,40.29265,-79.403762,21,0.591,1120,0.7215,0.6036,0.3964,Test Optional,Unannounced,0.37
+215929,University of Scranton,Scranton,PA,18510-4699,4,42,41.406556,-75.656915,13,0.8435,1237,0.808,0.4338,0.5662,Test Optional,Unannounced,0.61
+215947,Seton Hill University,Greensburg,PA,15601,4,42,40.309407,-79.557433,21,0.7579,1186,0.7099,0.358,0.642,Test Optional,Unannounced,0.44
+216010,Shippensburg University of Pennsylvania,Shippensburg,PA,17257-2299,4,42,40.057933,-77.522335,31,0.8555,1090,0.5161,0.4894,0.5106,Test Free,Yes,0.61
+216038,Slippery Rock University of Pennsylvania,Slippery Rock,PA,16057-1383,4,42,41.062719,-80.045965,32,0.7462,1086,0.6591,0.4498,0.5502,Test Optional,Unannounced,0.61
+216278,Susquehanna University,Selinsgrove,PA,17870-1025,4,42,40.797502,-76.875329,32,0.7871,1211,0.7409,0.4344,0.5656,Test Optional,No,0.42
+216287,Swarthmore College,Swarthmore,PA,19081,3,42,39.905159,-75.354278,21,0.0694,1527,0.9413,0.4856,0.5144,Test Optional,Yes,0.39
+216366,Thomas Jefferson University,Philadelphia,PA,19107,4,42,39.948274,-75.158266,11,0.8614,1259,0.6819,0.2619,0.7381,Test Optional,Unannounced,0.7
+216524,Ursinus College,Collegeville,PA,19426-1000,3,42,40.193023,-75.456505,21,0.8737,1304,0.7662,0.5206,0.4794,Test Optional,No,0.58
+216597,Villanova University,Villanova,PA,19085-1699,4,42,40.036463,-75.340502,21,0.2512,1466,0.9241,0.4612,0.5388,Test Optional,Yes,0.57
+216694,Waynesburg University,Waynesburg,PA,15370-1257,4,42,39.899871,-80.186205,32,0.9169,1114,0.605,0.4662,0.5338,Test Optional,Yes,0.64
+216764,West Chester University of Pennsylvania,West Chester,PA,19383,4,42,39.953398,-75.59812,21,0.792,1184,0.698,0.4088,0.5912,Test Optional,Yes,0.76
+216852,Widener University,Chester,PA,19013-5792,4,42,39.861689,-75.355363,21,0.8402,1170,0.6351,0.3978,0.6022,Test Optional,Yes,0.81
+216931,Wilkes University,Wilkes-Barre,PA,18766,4,42,41.244199,-75.890262,13,0.9146,1134,0.6034,0.4728,0.5272,Test Optional,No,0.62
+217013,Wilson College,Chambersburg,PA,17201-1285,4,42,39.949659,-77.650712,13,0.8998,1020,0.5183,0.1933,0.8067,Test Optional,No,0.71
+217059,York College of Pennsylvania,York,PA,17403-3651,4,42,39.94614,-76.727984,22,0.942,1135,0.5974,0.4393,0.5607,Test Optional,No,0.52
+217633,Anderson University,Anderson,SC,29621-4035,4,45,34.5152,-82.640358,13,0.5281,1190,0.7099,0.3679,0.6321,Test Optional,Unannounced,1
+217688,Charleston Southern University,Charleston,SC,29406-9121,4,45,32.983047,-80.072587,12,0.7609,1056,0.4858,0.3748,0.6252,Test Optional,Unannounced,0.09
+217721,Benedict College,Columbia,SC,29204-1086,4,45,34.012941,-81.020403,12,0.673,910,0.2115,0.4749,0.5251,Test Optional,Unannounced,0.84
+217776,Southern Wesleyan University,Central,SC,29630-1020,4,45,34.728068,-82.761586,22,1,1106,0.5202,0.3748,0.6252,Test Optional,Yes,0.44
+217819,College of Charleston,Charleston,SC,29424-0001,4,45,32.784225,-79.939794,12,0.72,1238,0.6498,0.3235,0.6765,Test Optional,Yes,0.62
+217864,Citadel Military College of South Carolina,Charleston,SC,29409,4,45,32.797183,-79.958775,12,0.9809,1184,0.7282,0.8567,0.1433,Test Optional,No,0.59
+217882,Clemson University,Clemson,SC,29634,4,45,34.679381,-82.835114,22,0.3805,1341,0.879,0.4697,0.5303,Test Optional,No,0.3
+217961,Converse University,Spartanburg,SC,29302-0006,4,45,34.955534,-81.917881,13,0.64,1124,0.471,0.2675,0.7325,Test Optional,No,0.53
+218061,Francis Marion University,Florence,SC,29506,4,45,34.189777,-79.652854,41,0.8223,1039,0.4273,0.358,0.642,Test Optional,Unannounced,0.61
+218070,Furman University,Greenville,SC,29613-6162,4,45,34.924676,-82.440458,21,0.5257,1364,0.8149,0.4264,0.5736,Test Optional,No,0.4
+218229,Lander University,Greenwood,SC,29649-2099,4,45,34.199892,-82.164736,32,0.6792,1057,0.4876,0.3186,0.6814,Test Optional,Unannounced,0.44
+218414,Newberry College,Newberry,SC,29108,4,45,34.285868,-81.619777,32,0.748,1008,0.4438,0.5335,0.4665,Test Optional,Unannounced,0.63
+218441,North Greenville University,Tigerville,SC,29688-1892,4,45,35.069758,-82.37026,41,0.6278,1176,0.5491,0.4654,0.5346,Test Optional,Unannounced,1
+218539,Presbyterian College,Clinton,SC,29325,4,45,34.465834,-81.87448,32,0.7234,1214,0.619,0.5151,0.4849,Test Optional,No,0.66
+218645,University of South Carolina Aiken,Aiken,SC,29801,4,45,33.572704,-81.767612,21,0.7972,1063,0.4011,0.3665,0.6335,Test Required,No,0
+218663,University of South Carolina-Columbia,Columbia,SC,29208,4,45,33.996788,-81.026935,12,0.6149,1297,0.7775,0.4211,0.5789,Test Optional,Yes,0.5
+218724,Coastal Carolina University,Conway,SC,29526,4,45,33.794995,-79.011767,13,0.8019,1128,0.5084,0.4497,0.5503,Test Optional,Unannounced,0.54
+218742,University of South Carolina-Upstate,Spartanburg,SC,29303-4999,4,45,34.996403,-81.970583,22,0.6961,1082,0.4242,0.3438,0.6562,Test Optional,Unannounced,0.78
+218964,Winthrop University,Rock Hill,SC,29733,4,45,34.941515,-81.031404,13,0.7506,1132,0.6122,0.3435,0.6565,Test Optional,No,0.49
+218973,Wofford College,Spartanburg,SC,29303-3663,3,45,34.959411,-81.933568,13,0.5859,1297,0.8075,0.4688,0.5312,Test Optional,No,0.46
+231420,Averett University,Danville,VA,24541,4,51,36.577287,-79.413203,32,0.478,1054,0.4357,0.5,0.5,Test Optional,Unannounced,0.93
+231581,Bridgewater College,Bridgewater,VA,22812-1599,4,51,38.378484,-78.969007,23,0.9081,1225,0.4944,0.5086,0.4914,Test Optional,No,0.73
+231624,William & Mary,Williamsburg,VA,23187-8795,4,51,37.269489,-76.708214,23,0.3272,1458,0.9101,0.4103,0.5897,Test Optional,No,0.3
+231651,Regent University,Virginia Beach,VA,23464,4,51,36.801173,-76.194627,11,0.4118,1169,0.5409,0.3865,0.6135,Test Optional,Unannounced,0.84
+231712,Christopher Newport University,Newport News,VA,23606-3072,4,51,37.062495,-76.494364,12,0.8796,1207,0.7508,0.4782,0.5218,Test Optional,No,0.53
+232025,Emory & Henry University,Emory,VA,24327-0947,4,51,36.772857,-81.829142,41,0.963,1171,0.5375,0.4607,0.5393,Test Required,No,0
+232089,Ferrum College,Ferrum,VA,24088-9000,4,51,36.926431,-80.020614,42,1,990,0.2886,0.6201,0.3799,Test Optional,No,0.88
+232186,George Mason University,Fairfax,VA,22030-4444,4,51,38.83195,-77.307063,21,0.8883,1247,0.6932,0.51,0.49,Test Optional,No,0.59
+232256,Hampden-Sydney College,Hampden-Sydney,VA,23943,3,51,37.240615,-78.464216,42,0.5013,1168,0.6527,0.9989,0.0011,Test Optional,Yes,0.71
+232265,Hampton University,Hampton,VA,23668-0099,4,51,37.019944,-76.339161,21,0.4827,1062,0.5567,0.323,0.677,Test Optional,Yes,0.28
+232308,Hollins University,Roanoke,VA,24020,4,51,37.354201,-79.943277,22,0.7086,1256,0.6968,0,1,Test Optional,No,0.71
+232423,James Madison University,Harrisonburg,VA,22807,4,51,38.436311,-78.870484,13,0.7625,1247,0.8089,0.4307,0.5693,Test Optional,No,0.74
+232566,Longwood University,Farmville,VA,23909,4,51,37.297975,-78.396987,32,0.848,1117,0.616,0.303,0.697,Test Optional,No,0.56
+232609,University of Lynchburg,Lynchburg,VA,24501-3113,4,51,37.399774,-79.181653,13,0.8219,1100,0.6162,0.3809,0.6191,Test Free,No,0.75
+232681,University of Mary Washington,Fredericksburg,VA,22401-5300,4,51,38.302492,-77.476055,22,0.8626,1241,0.6738,0.3716,0.6284,Test Optional,No,0.7
+232937,Norfolk State University,Norfolk,VA,23504-8000,4,51,36.848429,-76.261375,12,0.8746,980,0.3267,0.3301,0.6699,Test Optional,Yes,0.79
+232982,Old Dominion University,Norfolk,VA,23529,4,51,36.886418,-76.30666,12,0.9052,1190,0.4435,0.4564,0.5436,Test Optional,No,0.04
+233277,Radford University,Radford,VA,24142,4,51,37.136907,-80.549728,31,0.9064,1061,0.4962,0.351,0.649,Test Optional,No,0.71
+233295,Randolph-Macon College,Ashland,VA,23005-5505,3,51,37.76043,-77.478416,21,0.834,1148,0.746,0.4627,0.5373,Test Optional,No,0.49
+233301,Randolph College,Lynchburg,VA,24503-1555,4,51,37.437315,-79.171887,13,0.9494,1109,0.5149,0.3981,0.6019,Test Optional,No,0.78
+233374,University of Richmond,University of Richmond,VA,23173,4,51,37.577393,-77.538806,12,0.2331,1474,0.8784,0.46,0.54,Test Optional,Yes,0.6
+233426,Roanoke College,Salem,VA,24153-3794,3,51,37.294861,-80.055467,22,0.8007,1193,0.6589,0.4564,0.5436,Test Optional,No,0.53
+233611,Southern Virginia University,Buena Vista,VA,24416,3,51,37.740368,-79.35037,32,0.9964,1099,0.3829,0.516,0.484,Test Optional,Unannounced,0.73
+233718,Sweet Briar College,Sweet Briar,VA,24595-9998,4,51,37.556725,-79.081014,41,0.7174,1227,0.481,0,1,Test Optional,No,0.63
+233897,University of Virginia's College at Wise,Wise,VA,24293-4400,3,51,36.970602,-82.559656,32,0.9392,1104,0.4981,0.4127,0.5873,Test Optional,Yes,0.69
+233921,Virginia Polytechnic Institute and State University,Blacksburg,VA,24061-0131,4,51,37.229012,-80.423675,13,0.5703,1337,0.8628,0.5717,0.4283,Test Optional,Yes,0.54
+234030,Virginia Commonwealth University,Richmond,VA,23284-2512,4,51,37.54962,-77.452697,12,0.9306,1168,0.6538,0.3637,0.6363,Test Optional,No,0.64
+234076,University of Virginia-Main Campus,Charlottesville,VA,22903-2628,4,51,38.035665,-78.503428,22,0.1686,1488,0.953,0.4342,0.5658,Test Optional,Yes,0.33
+234085,Virginia Military Institute,Lexington,VA,24450-0304,3,51,37.7896,-79.437067,32,0.8173,1183,0.818,0.8692,0.1308,Test Optional,Yes,0.77
+234155,Virginia State University,Petersburg,VA,23806,4,51,37.234692,-77.419026,21,0.891,917,0.4072,0.4042,0.5958,Test Optional,Unannounced,0.79
+234164,Virginia Union University,Richmond,VA,23220,4,51,37.562405,-77.450903,12,0.9773,860,0.4133,0.4788,0.5212,Test Optional,Yes,0.94
+234173,Virginia Wesleyan University,Virginia Beach,VA,23455,4,51,36.868417,-76.18606,11,0.7129,1281,0.4905,0.4377,0.5623,Test Optional,No,0.86
+234207,Washington and Lee University,Lexington,VA,24450-2116,4,51,37.788939,-79.443018,32,0.1736,1504,0.949,0.4857,0.5143,Test Optional,Yes,0.46
+237136,Appalachian Bible College,Mount Hope,WV,25880-9557,4,54,37.853335,-81.198867,23,0.9857,1068,0.7561,0.5774,0.4226,Test Optional,Unannounced,0.18
+237215,Bluefield State University,Bluefield,WV,24701-2198,3,54,37.265732,-81.239037,32,0.8722,998,0.3456,0.3972,0.6028,Test Optional,Unannounced,0.42
+237330,Concord University,Athens,WV,24712,4,54,37.423723,-81.006696,41,0.8965,980,0.4225,0.411,0.589,Test Optional,Yes,0.11
+237358,Davis & Elkins College,Elkins,WV,26241-3996,3,54,38.931232,-79.846022,33,0.5823,985,0.366,0.442,0.558,Test Optional,Unannounced,0.52
+237367,Fairmont State University,Fairmont,WV,26554-2470,4,54,39.483079,-80.162433,32,0.9924,993,0.4832,0.4394,0.5606,Test Required,No,0
+237525,Marshall University,Huntington,WV,25755,4,54,38.422482,-82.428964,13,0.9646,1051,0.4869,0.4294,0.5706,Test Optional,Unannounced,1
+237792,Shepherd University,Shepherdstown,WV,25443,4,54,39.433071,-77.804101,41,0.9565,1022,0.4949,0.3928,0.6072,Test Optional,Unannounced,0.36
+237899,West Virginia State University,Institute,WV,25112-1000,4,54,38.380541,-81.765034,22,0.9637,979,0.3351,0.4375,0.5625,Test Optional,Unannounced,0.19
+237932,West Liberty University,West Liberty,WV,26074,4,54,40.164417,-80.602256,41,0.7212,1041,0.6062,0.3916,0.6084,Test Optional,Yes,-0.05
+237950,West Virginia University Institute of Technology,Beckley,WV,25801,3,54,37.775924,-81.184072,13,0.61,1044,0.3612,0.6016,0.3984,Test Optional,Unannounced,-0.16
+237969,West Virginia Wesleyan College,Buckhannon,WV,26201-2994,4,54,38.990661,-80.218969,33,0.9505,1045,0.4945,0.5017,0.4983,Test Optional,Yes,0.33
+238032,West Virginia University,Morgantown,WV,26506,4,54,39.634371,-79.954391,13,0.8626,1129,0.612,0.4844,0.5156,Test Optional,No,-0.11
+262129,New College of Florida,Sarasota,FL,34243-2109,4,12,27.384925,-82.55858,13,0.74,1137,0.6181,0.4229,0.5771,Test Required,No,0
+426314,Embry-Riddle Aeronautical University-Worldwide,Daytona Beach,FL,32114-3900,4,12,29.189903,-81.048367,13,0.6175,1193,0.21560000000000001,0.8424,0.1576,Test Optional,Unannounced,0.95
+433660,Florida Gulf Coast University,Fort Myers,FL,33965-6565,4,12,26.463638,-81.7726,21,0.7675,1120,0.5602,0.4365,0.5635,Test Required,No,0
+445708,Johnson & Wales University-Charlotte,Charlotte,NC,28202,3,37,35.233502,-80.851208,11,0.7528,1015,0.5211,0.3632,0.6368,Test Optional,No,0.79
+451927,Patrick Henry College,Purcellville,VA,20132,3,51,39.138687,-77.690939,31,0.8198,1351,0.6545,0.5308,0.4692,Test Required,No,0
+479956,Pennsylvania State University-World Campus,University Park,PA,16802-1503,4,42,40.7965,-77.862848,13,0.8027,1198,0.3363,0.4688,0.5312,Test Required,No,0
+482149,Augusta University,Augusta,GA,30912,4,13,33.47037,-81.989071,12,0.8931,1113,0.4865,0.3593,0.6407,Test Required,No,0
+482158,Middle Georgia State University,Macon,GA,31206,4,13,32.808092,-83.732058,12,0.9977,1055,0.256,0.4583,0.5417,Test Optional,Yes,0.6
+482680,University of North Georgia,Dahlonega,GA,30597,4,13,34.530219,-83.985694,32,0.7216,1136,0.3685,0.4435,0.5565,Test Optional,Yes,0.01
+482936,Florida Polytechnic University,Lakeland,FL,33805-8531,4,12,28.150149,-81.845995,41,0.5573,1294,0.5302,0.8104,0.1896,Test Required,No,0
+484473,University of Florida-Online,Gainesville,FL,32611,3,12,29.649413,-82.339848,12,0.6438,1331,0.7766,0.4634,0.5366,Test Required,No,0
+485698,American College of the Building Arts,Charleston,SC,29403-4223,3,45,32.805094,-79.946888,12,0.6207,1137,0.64,0.8143,0.1857,Test Required,No,0
+486840,Kennesaw State University,Kennesaw,GA,30144,4,13,34.038807,-84.583052,21,0.6918,1120,0.4806,0.5029,0.4971,Test Optional,Yes,0.03
+498562,Commonwealth University of Pennsylvania,Bloomsburg,PA,17815,4,42,41.00782,-76.447844,32,0.9475,1093,0.5302,0.3962,0.6038,Test Required,No,0
+498571,Pennsylvania Western University,California,PA,15419,4,42,40.064964,-79.88679,32,0.9365,1076,0.5103,0.3892,0.6108,Test Optional,Unannounced,0.82
