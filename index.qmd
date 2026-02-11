@@ -15,7 +15,7 @@ format:
     df-print: kable
   pdf:
     # https://quarto.org/docs/reference/formats/pdf.html
-    link-citations: true
+    link-citations: false
 prefer-html: true
 ---
 
@@ -39,6 +39,8 @@ During the COVID-19 pandemic, it became extremely difficult for students to take
 ```{r}
 #| label: imports
 #| echo: false
+#| warning: false
+#| message: false
 library(tidyverse, quietly = TRUE, warn.conflicts = FALSE) |> suppressPackageStartupMessages()
 library(plotly, quietly = TRUE) |> suppressPackageStartupMessages()
 library(colorspace, quietly = TRUE) |> suppressPackageStartupMessages()
