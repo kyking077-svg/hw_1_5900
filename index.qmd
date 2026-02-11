@@ -19,22 +19,22 @@ format:
 prefer-html: true
 ---
 
-# Introduction
+## Introduction
 The “Scholastic Assessment Test,” or the SAT, is a major part of the college application process. It is a college entrance exam that is meant to provide a uniform metric of a student's preparedness for college. Before 2021, most colleges and universities required prospective students to submit an SAT score (or it's counterpart, the American College Test) as part of their application package. However, in the aftermath of the COVID-19 pandemic, many colleges implemented test-optional policies, waiving the testing requirement for prospective students. In 2026, six years after the onset of the pandemic, many students, parents, and institutions are wondering: Is it time to reinstate the SAT?
 (cite stuff)
 
 ## The Scholastic Assessment Test
-The SAT is a standardized test that is typically taken in high school, in preparation for the college application process. It scores students on a scale of 200-1600 in Math, Reading/Writing, and optional Essay sections. College Board, the organization that administers the SAT, claims that students who score at least a 480 in Reading/Writing and 530 in Math, or a 1010 overall, are on track to be 'college ready'.[@sat_benchmarks]
+The SAT is a standardized test that is typically taken in high school, in preparation for the college application process. It scores students on a scale of 200-1600 in Math, Reading/Writing, and optional Essay sections. College Board, the organization that administers the SAT, claims that students who score at least a 480 in Reading/Writing and 530 in Math, or a 1010 overall, are on track to be 'college ready'.^[@sat_benchmarks]
 
 College Board provides the following statement about the purpose and capabilities of the SAT:
 
 > The primary purpose of the digital SAT Suite is to assess students’ preparedness for success in both college and careers. All assessment content is developed based on high-quality research that identifies the knowledge and skills essential for college and career readiness and success. Each test within the suite is designed to collect evidence from student performance to support broad claims about what students know and can do. This aligns with the primary purpose of assessing readiness for college and career training programs. [@sat_purpose]
 
-To put it more simply, the SAT is designed to assess how well a student will perform in college. College Board published a study in 2023, which claims that “SAT scores add, on average, 15% more predictive power than high school GPA alone in understanding student performance in the first year of college." [@sat_study] It is easier for a college to determine how well a student will perform at their institution when they have the SAT as a metric. Being such a large part of the college application process, the SAT is a source of stress for many students, and some believe it creates a class barrier for low-income students who cannot afford the test, or its preparation. [@Kantrowitz_2022]
+To put it more simply, the SAT is designed to assess how well a student will perform in college. College Board published a study in 2023, which claims that “SAT scores add, on average, 15% more predictive power than high school GPA alone in understanding student performance in the first year of college." ^[@sat_study] It is easier for a college to determine how well a student will perform at their institution when they have the SAT as a metric. Being such a large part of the college application process, the SAT is a source of stress for many students, and some believe it creates a class barrier for low-income students who cannot afford the test, or its preparation. ^[@Kantrowitz_2022]
 
 
 ## The Introduction of Test-Optional Policies
-During the COVID-19 pandemic, it became extremely difficult for students to take the SAT. Many test centers were shut down due to local states of emergency. In addition, many students faced health concerns, financial constraints, or mental health crises that prevented them from taking the exams. In a response to the pandemics restrictions, many schools implemented 'test-optional' policies. Under these policies, the schools did not require students to take the SAT (or ACT) to apply for undergraduate admission. As a result, the number of students who took the SAT in 2021 was 30% lower than in 2020, and that number has not returned to pre-pandemic levels as of 2024's published metrics. [@USAFacts_Team_2022] This decline of test-takers over time is displayed in the line chart below, to show the effect of the COVID-19 pandemic on SAT testing.
+During the COVID-19 pandemic, it became extremely difficult for students to take the SAT. Many test centers were shut down due to local states of emergency. In addition, many students faced health concerns, financial constraints, or mental health crises that prevented them from taking the exams. In a response to the pandemics restrictions, many schools implemented 'test-optional' policies. Under these policies, the schools did not require students to take the SAT (or ACT) to apply for undergraduate admission. As a result, the number of students who took the SAT in 2021 was 30% lower than in 2020, and that number has not returned to pre-pandemic levels as of 2024's published metrics. ^[@USAFacts_Team_2022] This decline of test-takers over time is displayed in the line chart below, to show the effect of the COVID-19 pandemic on SAT testing.
 
 ```{r}
 #| label: imports
@@ -115,13 +115,132 @@ fig
 ```
 
 
+Many institutions have maintained the test-optional policies they instituted during the pandemic. An estimated 80% of schools have decided to remain test-optional for Fall 2026 admissions, while others, including Harvard, Yale, Georgetown, and MIT, have reinstated their testing requirements for Fall 2026. ^[@Patel_2025] This report studies a sample of schools located near Georgecity University, in the southeastern United States. Of those schools, 85% of them are retaining their test-optional or test-free policies for Fall 2026, as displayed in the figure below. 
+
+```{r}
+#| echo: false
+fig <- plot_ly(
+  df_counts,
+  x = ~Policy_2026,
+  y = ~pct/100,
+  type = 'bar',
+  marker = list(
+    color = ifelse(df_counts$Policy_2026 == "Test Optional", sat_blue, sat_grey)
+  ),
+  text = ~paste0(round(pct, 1), "%"),   # Text labels as percentages
+  textposition = 'outside',              # Place text above bars
+  textfont = list(size = 14, color = "black", family = "Arial")  # Match scatterplot style
+) |>
+  layout(
+    title = list(
+      text = "Test Policies in Sampled Schools for Fall 2026",
+      x = 0.5,
+      font = list(size = 18, color = "black", family = "Arial")  # Match scatterplot title style
+    ),
+    xaxis = list(
+      title = list(text="Admission Testing Requirement", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial")
+    ),
+    yaxis = list(
+      title = list(text="Percent of Sampled Schools", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      tickformat = ".0%",
+      range = c(0, 1)
+    ),
+    margin = list(t = 90)  # Extra top margin for title
+  ) |>
+  config(
+    staticPlot = TRUE 
+  )
+```
+
+```{r}
+#| echo: false
+fig
+```
+
+With this large majority of institutions who continue to be test-optional, it begs the question: is there truly a benefit to requiring SAT scores for undergraduate admission? As of 2026, a full cohort of students has entered college without SAT scores, and likely graduated from their respective institutions. The following section seeks to determine whether the SAT accurately assesses student preparedness, based on institution-level data, gathered from College Scorecard. ^[@College_Scorecard_Data_2025]
+
+## Does the SAT Assess Student Preparedness?
+The first item to clarify is whether SAT scores are related to admissions rates. The following chart shows the relationship between the average SAT score of a school's admitted students, and the corresponding admission rate of that school. When tested for correlation, the average SAT score of a school's admitted students had a negative relationship with the school's admission rate. In simple terms, the higher the 'required' SAT score for acceptance, the lower the admission rate. 
 
 
 
 ```{r}
-#| label: testing charts
 #| echo: false
-#testing plotly charts
+quad_fit <- lm(ADM_RATE ~ SAT_AVG + I(SAT_AVG^2), data = admin_df)
+
+#generating predicitons
+x_seq <- seq(min(admin_df$SAT_AVG, na.rm = TRUE),
+             max(admin_df$SAT_AVG, na.rm = TRUE),
+             length.out = 200)
+
+pred_df <- data.frame(SAT_AVG = x_seq)
+pred <- predict(quad_fit, newdata = pred_df, interval = "confidence", level = 0.95)
+pred_df$fit <- pred[, "fit"]
+pred_df$lwr <- pred[, "lwr"]
+pred_df$upr <- pred[, "upr"]
+
+#chart
+fig <- plot_ly() |>
+  # Scatter points
+  add_trace(data = admin_df,
+            x = ~SAT_AVG, y = ~ADM_RATE,
+            type = 'scatter', mode = 'markers',
+            marker = list(color = sat_blue),
+            name = 'Schools', text = ~paste(
+    "School: ", INSTNM,
+    "<br>Average SAT: ", SAT_AVG,
+    "<br>Admission Rate: ", scales::percent(ADM_RATE, accuracy = 1)
+  ),
+  hoverinfo = 'text'
+) |>
+  # Regression line
+  add_trace(data = pred_df,
+            x = ~SAT_AVG, y = ~fit,
+            type = 'scatter', mode = 'lines',
+            line = list(color = sat_grey, width = 2),
+            name = 'Line of Best Fit') |>
+  # Confidence ribbon
+  add_ribbons(data = pred_df,
+              x = ~SAT_AVG,
+              ymin = ~lwr, ymax = ~upr,
+              fillcolor = 'rgba(70,130,180,0.2)',  # semi-transparent steelblue
+              line = list(color = 'transparent'),
+              name = '95% CI') |>
+  layout(title = list(text="Relationship Between SAT Average Scores and Admission Rates",tickfont = list(size = 16, color = "black", family = "Arial")),
+         xaxis = list(title = "SAT Average Score for Accepted Students", fixedrange = TRUE, tickfont = list(size = 14, color = "black", family = "Arial")),
+         yaxis = list(title = "Admission Rate", fixedrange = TRUE, tickformat = ".0%", tickfont = list(size = 14, color = "black", family = "Arial")),
+        dragmode = "zoom") |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+#| echo: false
+fig
+```
+
+```{r}
+#| echo: false
+correlation <- cor(admin_df$SAT_AVG, admin_df$ADM_RATE, method = 'pearson')
+#-0.5716748
+
+```
+
+While this seems fairly straightforward, it is more noticeable for schools with extremely low admission rates, like those in the bottom left of the chart. For schools with a 60-100% admission rate, the relationship between SAT scores and admission rates was virtually nonexistent, as can be seen in the top of the previous charts parabola. This reflects the social observations made earlier: more selective schools want to see high SAT scores, but less selective schools are (generally) maintaining their test-optional policies. 
+
+On a popular and social level, SAT requirements are not being reinstated across the board. However, they may be necessary for the wellbeing of the Georgecity University institution and its students. The SAT was created to accurately assess student preparedness for college. Part of that preparedness is the ability to complete a college program. The following chart shows the relationship between the average SAT score of a school's admitted students, and the corresponding 6-year completion rate of that school. The 6-year completion rate predicts what percentage of a student cohort in a 4-year program will complete that program in a reasonable amount of time, or 6 years. The scatterplot visually shows a strong correlation between the two variables, which means that, as a school's SAT score requirements increase, so too does the capability of its students to complete college. 
+
+```{r}
+#| echo: false
 
 fig <- plot_ly(admin_df, 
                x = ~SAT_AVG, y = ~C150_4,
@@ -141,7 +260,7 @@ fig <- plot_ly(admin_df,
       font = list(size = 18, color = "black", family = "Arial"),
       x = 0.5  # centers the title like hjust = 0.5
     ),
-    margin = list(t = 100),
+    margin = list(t = 90),
     xaxis = list(
       title = list(text = "SAT Average Score for Accepted Students", font = list(size = 14, color = "black", family = "Arial")),
       tickfont = list(size = 12, color = "black", family = "Arial"),
@@ -170,104 +289,21 @@ fig <- plot_ly(admin_df,
 
 ```
 
-```{r}
-#| echo: false
-fig
-```
-
-```{r}
-#| echo: false
-fig <- plot_ly(
-  df_counts,
-  x = ~Policy_2026,
-  y = ~pct/100,
-  type = 'bar',
-  marker = list(
-    color = ifelse(df_counts$Policy_2026 == "Test Optional", sat_blue, sat_grey)
-  ),
-  text = ~paste0(round(pct, 1), "%"),   # Text labels as percentages
-  textposition = 'outside',              # Place text above bars
-  textfont = list(size = 14, color = "black", family = "Arial")  # Match scatterplot style
-) |>
-  layout(
-    title = list(
-      text = "Admissions Test Policies in Nearby Schools for Fall 2026",
-      x = 0.5,
-      font = list(size = 18, color = "black", family = "Arial")  # Match scatterplot title style
-    ),
-    xaxis = list(
-      title = list(text="Admissions Testing Requirement", font = list(size = 14, color = "black", family = "Arial")),
-      tickfont = list(size = 12, color = "black", family = "Arial")
-    ),
-    yaxis = list(
-      title = list(text="Percent of Nearby Schools", font = list(size = 14, color = "black", family = "Arial")),
-      tickfont = list(size = 12, color = "black", family = "Arial"),
-      tickformat = ".0%",
-      range = c(0, 1)
-    ),
-    margin = list(t = 90)  # Extra top margin for title
-  ) |>
-  config(
-    staticPlot = TRUE 
-  )
-
-```
 
 ```{r}
 #| echo: false
 fig
 ```
 
-```{r}
-#| echo: false
 
-year <- c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
-test_takers <- c(1637589, 1715481, 2136539, 2220087, 2198460, 1509133, 1737678, 1913742, 1973891)
-test_takers_df <- data.frame(year, test_takers)
+To confirm this observation, a linear regression model was fitted to the school data. It found that, for every 150 point increase above 1170 in a school's average SAT scores, the school sees a 15% increase in undergraduate 6-year completion rates. This heavily implies that students who do well on the SAT and go to a college that matches their score are more likely to complete college within 6 years. This finding fulfills the purpose of the SAT, which was to measure a student's ability to perform well in college. According to these findings and data, it would be beneficial to an institution to implement an SAT requirement to future admissions cycles, to serve as a metric for whether the students will succeed at that school. 
 
-fig <- plot_ly(
-  test_takers_df,
-  x = ~year,
-  y = ~test_takers/1e6,
-  type = 'scatter',
-  mode = 'lines+markers',
-  line = list(color = sat_blue, width = 2),
-  text = ~paste(
-    "Year: ", year,
-    "<br>Number of Students:", format(test_takers, big.mark = ",")
-  ),
-  hoverinfo = 'text'
-) |>
-  layout(
-    title = list(
-      text = "SAT Test Takers by Year (2016-2024)",
-      x = 0.5,
-      font = list(size = 16, color = "black", family = "Arial") 
-    ),
-    xaxis = list(
-      title = list(text="Year", font = list(size = 14, color = "black", family = "Arial")),
-      tickfont = list(size = 12, color = "black", family = "Arial"),
-      fixedrange = TRUE
-    ),
-    yaxis = list(
-      title = list(text="Number of Test Takers (millions)", font = list(size = 14, color = "black", family = "Arial")),
-      tickfont = list(size = 12, color = "black", family = "Arial"),
-      tickformat = ".1f",
-      fixedrange = TRUE
-    )
-  ) |>
-  config(
-    modeBarButtonsToRemove = c(
-      "select2d",   # box select
-      "lasso2d",    # lasso select
-      "toggleSpikelines"  # optional extra buttons you might not want
-    ),
-    displaylogo = FALSE  # removes Plotly logo
-  )
+## Implementation and Next Steps
 
-```
+This report recommends that Georgecity University prepares to reinstate its SAT requirements for incoming student applications. Despite the prevalence of test-optional policies in 2026, this change will be beneficial to the University's ability to assess prospective students. The report found that schools that require higher SAT scores for admission also have higher 6-year completion rates, indicating that undergraduate students who perform well on the SAT are more likely to complete their college programs. 
 
-```{r}
-#| echo: false
-fig
-```
+Before this new policy is written or implemented, the University must collect SAT test scores and 6-year completion rates for a cohort of enrolled students. The findings in this report need to be confirmed with individual-level data, to ensure that the benefit observed across multiple schools will hold on a local level.
+
+In addition, the University should consider the circumstances that brought about the current Test-Optional policy, and ensure that they are addressed. The University decided to waive SAT requirements in the wake of the COVID-19 pandemic, to support prospective students during the difficult time, and alleviate some of the financial and mental burden of applying for college during a global pandemic. The pandemic itself ended several years ago, which addresses part of the initial problem. While the mental load of prospective students is difficult to quantify, the University must also ensure that the SAT requirement does not become a financial barrier. This report recommends that the University engages with its Office of Financial Aid, to ensure that students who wish to apply, but cannot afford SAT preparation or examination, receive support. 
+
+While this new policy would place Georgecity University in a minority of institutions that require the SAT, it reinstates an important metric for evaluating new undergraduate students. By first evaluating the SAT averages and completion rates of current students, the University can ensure that this policy is right for its student body. By further engaging with the Office of Financial Aid and willing contributors, the University can also ensure that this new requirement does not prevent prospective students from attending because of financial need. In taking these steps, the University can return to 'standard' evaluation methods that were removed during the pandemic, while still retaining the support and accessibility it currently promotes.
