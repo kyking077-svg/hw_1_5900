@@ -39,9 +39,9 @@ During the COVID-19 pandemic, it became extremely difficult for students to take
 ```{r}
 #| label: imports
 #| echo: false
-library(tidyverse) |> suppressPackageStartupMessages()
-library(plotly) |> suppressPackageStartupMessages()
-library(colorspace) |> suppressPackageStartupMessages()
+library(tidyverse, quietly = TRUE, warn.conflicts = FALSE) |> suppressPackageStartupMessages()
+library(plotly, quietly = TRUE) |> suppressPackageStartupMessages()
+library(colorspace, quietly = TRUE) |> suppressPackageStartupMessages()
 dark_steelblue <- darken("steelblue4", 0.2)
 sat_blue <- '#009bdb'
 sat_grey <- "#96999aff"
@@ -51,8 +51,8 @@ sat_grey <- "#96999aff"
 ```{r}
 #| label: loading_data
 #| echo: false
-admin_df <- read_csv("data/cleaned_admin_df.csv")
-admin_test_df <- read_csv("data/admin_test_full.csv")
+admin_df <- read_csv("data/cleaned_admin_df.csv", show_col_types = FALSE)
+admin_test_df <- read_csv("data/admin_test_full.csv", show_col_types = FALSE)
 df_counts <- admin_test_df |>
   count(Policy_2026) |>
   mutate(pct = n / sum(n) * 100)
