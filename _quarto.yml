@@ -2,8 +2,16 @@ project:
   type: website
   output-dir: docs
 
-manuscript:
-  article: index.qmd
+website:
+  title: "To Test, or Not to Test?"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Report
+      - href: ai-statement.qmd
+        text: AI Statement
+      - href: data\data_cleaning.ipynb
+        text: Data Cleaning
 
 format:
   html:
