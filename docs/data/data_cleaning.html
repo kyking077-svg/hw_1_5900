@@ -138,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This Jupyter Notebook contains all the information for cleaning and processing the data for the website report. The technical information about sourcing and preprocessing will be in this Notebook, and not in the official report content page. This project uses R primarily, through the Tidyverse package.</p>
-<div id="1c5110c5" class="cell" data-execution_count="168">
+<div id="1c5110c5" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">##install.packages('tidyverse')</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'tidyverse'</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>library(colorspace)</span>
@@ -186,22 +186,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply globally</span></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>theme_set(theme_eda_modern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f66d6829" class="cell" data-execution_count="77">
+<div id="f66d6829" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Loading the data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> read_csv(<span class="st">"Most-Recent-Cohorts-Institution.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">6429</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">3306</span>
 
-<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">─────────────────────────────────────────────────────────────────────────────</span>
 
 <span class="ansi-bold">Delimiter:</span> ","
 
-<span class="ansi-red-fg">chr</span> (2380): OPEID, OPEID6, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL,...
+<span class="ansi-red-fg">chr</span> (2380): OPEID, OPEID6, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL, NPCURL, DEATH_YR2_RT...
 
-<span class="ansi-green-fg">dbl</span>  (851): UNITID, SCH_DEG, HCM2, MAIN, NUMBRANCH, PREDDEG, HIGHDEG, CONTRO...
+<span class="ansi-green-fg">dbl</span>  (851): UNITID, SCH_DEG, HCM2, MAIN, NUMBRANCH, PREDDEG, HIGHDEG, CONTROL, ST_FIPS, REGION, L...
 
-<span class="ansi-yellow-fg">lgl</span>   (75): LOCALE2, UG, UGDS_WHITENH, UGDS_BLACKNH, UGDS_API, UGDS_AIANOLD,...
+<span class="ansi-yellow-fg">lgl</span>   (75): LOCALE2, UG, UGDS_WHITENH, UGDS_BLACKNH, UGDS_API, UGDS_AIANOLD, UGDS_HISPOLD, UG_NRA...
 
 
 
@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>First I will do an initial filtering and cleaning of the dataset. I want to specify the states and columns the project could be based off of. We also need to make sure that I have at least 200 usable schools.</p>
-<div id="75fe3ba7" class="cell" data-execution_count="78">
+<div id="75fe3ba7" class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">## selecting the states I want</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>states <span class="op">&lt;-</span> c(<span class="st">'DC'</span>,<span class="st">'DE'</span>,<span class="st">'FL'</span>,<span class="st">'GA'</span>,<span class="st">'MD'</span>,<span class="st">'NC'</span>,<span class="st">'PA'</span>,<span class="st">'SC'</span>,<span class="st">'VA'</span>,<span class="st">'WV'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span> <span class="bu">filter</span>(STABBR <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span>
@@ -228,46 +228,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># SAT midpoints for critical thinking, reading, and writing, and average total</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ACT midpoints for english, math, and writing, and the midpoint cumulative score,</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Completion rate for first-time, full-time students at four-year institutions (150% of expected time to completion)</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># total share of undergrad enrollment who are men, and women, number of grad students</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#number of programs offered</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>columns_to_select <span class="op">&lt;-</span> c(<span class="st">'UNITID'</span>,<span class="st">'INSTNM'</span>,<span class="st">'CITY'</span>,<span class="st">'STABBR'</span>,<span class="st">'ZIP'</span>,<span class="st">'HIGHDEG'</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">'ST_FIPS'</span>,<span class="st">'LATITUDE'</span>,<span class="st">'LONGITUDE'</span>,<span class="st">'LOCALE'</span>,<span class="st">'ADM_RATE'</span>,<span class="st">'SATVRMID'</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">'SATMTMID'</span>,<span class="st">'SATWRMID'</span>,<span class="st">'SAT_AVG'</span>, <span class="st">'ACTCMMID'</span>,<span class="st">'ACTENMID'</span>, <span class="st">'ACTMTMID'</span>,<span class="st">'ACTWRMID'</span>,<span class="st">'C150_4'</span>,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">'UGDS_MEN'</span>, <span class="st">'UGDS_WOMEN'</span>,<span class="st">'GRADS'</span>,<span class="st">'PRGMOFR'</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> select(columns_to_select)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Retained Columns:"</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(colnames(cleaning))</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(paste(<span class="st">"Number of Schools:"</span>, nrow(cleaning)))</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columns with Missing Values: "</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>colSums(<span class="kw">is</span>.na(cleaning))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># total share of undergrad enrollment who are men, and women, and the net price, adn cost of attendance</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>columns_to_select <span class="op">&lt;-</span> c(<span class="st">'UNITID'</span>,<span class="st">'INSTNM'</span>,<span class="st">'CITY'</span>,<span class="st">'STABBR'</span>,<span class="st">'ZIP'</span>,<span class="st">'HIGHDEG'</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">'ST_FIPS'</span>,<span class="st">'LATITUDE'</span>,<span class="st">'LONGITUDE'</span>,<span class="st">'LOCALE'</span>,<span class="st">'ADM_RATE'</span>,<span class="st">'SATVRMID'</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">'SATMTMID'</span>,<span class="st">'SATWRMID'</span>,<span class="st">'SAT_AVG'</span>, <span class="st">'ACTCMMID'</span>,<span class="st">'ACTENMID'</span>, <span class="st">'ACTMTMID'</span>,<span class="st">'ACTWRMID'</span>,<span class="st">'C150_4'</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">'UGDS_MEN'</span>, <span class="st">'UGDS_WOMEN'</span>,<span class="st">"NPT4_PUB"</span>,<span class="st">'NPT4_PRIV'</span>, <span class="st">'COSTT4_A'</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> select(all_of(columns_to_select))</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Retained Columns:"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(colnames(cleaning))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(paste(<span class="st">"Number of Schools:"</span>, nrow(cleaning)))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columns with Missing Values: "</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>colSums(<span class="kw">is</span>.na(cleaning))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Retained Columns:"
- [1] "UNITID"     "INSTNM"     "CITY"       "STABBR"     "ZIP"       
- [6] "HIGHDEG"    "ST_FIPS"    "LATITUDE"   "LONGITUDE"  "LOCALE"    
-[11] "ADM_RATE"   "SATVRMID"   "SATMTMID"   "SATWRMID"   "SAT_AVG"   
-[16] "ACTCMMID"   "ACTENMID"   "ACTMTMID"   "ACTWRMID"   "C150_4"    
-[21] "UGDS_MEN"   "UGDS_WOMEN" "GRADS"      "PRGMOFR"   
+ [1] "UNITID"     "INSTNM"     "CITY"       "STABBR"     "ZIP"        "HIGHDEG"    "ST_FIPS"   
+ [8] "LATITUDE"   "LONGITUDE"  "LOCALE"     "ADM_RATE"   "SATVRMID"   "SATMTMID"   "SATWRMID"  
+[15] "SAT_AVG"    "ACTCMMID"   "ACTENMID"   "ACTMTMID"   "ACTWRMID"   "C150_4"     "UGDS_MEN"  
+[22] "UGDS_WOMEN" "NPT4_PUB"   "NPT4_PRIV"  "COSTT4_A"  
 [1] "Number of Schools: 486"
 [1] "Columns with Missing Values: "</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS 
-         0          0          0          0          0          0          0 
-  LATITUDE  LONGITUDE     LOCALE   ADM_RATE   SATVRMID   SATMTMID   SATWRMID 
-         0          0          0          0        233        233        272 
-   SAT_AVG   ACTCMMID   ACTENMID   ACTMTMID   ACTWRMID     C150_4   UGDS_MEN 
-       194        244        258        259        396         77          0 
-UGDS_WOMEN      GRADS    PRGMOFR 
-         0        146        450 </code></pre>
+<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS   LATITUDE  LONGITUDE 
+         0          0          0          0          0          0          0          0          0 
+    LOCALE   ADM_RATE   SATVRMID   SATMTMID   SATWRMID    SAT_AVG   ACTCMMID   ACTENMID   ACTMTMID 
+         0          0        233        233        272        194        244        258        259 
+  ACTWRMID     C150_4   UGDS_MEN UGDS_WOMEN   NPT4_PUB  NPT4_PRIV   COSTT4_A 
+       396         77          0          0        327        174         48 </code></pre>
 </div>
 </div>
 <p>We need to have SAT_AVG scores for every school in my small study, so we are going to drop all of the rows that have a ‘NA’ in that column, and the NA’s in the Completed in 4 years column. I also see that almost no schools have the ACTWRMID or PRGMOFR column, so lets get rid of those. Because I don’t have a conversion for the SAT to ACT, I’m also going to drop the ACT columns and extra SAT columns.</p>
-<div id="51d597e1" class="cell" data-execution_count="79">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> drop_na(SAT_AVG) <span class="op">|&gt;</span> drop_na(C150_4) <span class="op">|&gt;</span> select(<span class="op">-</span>PRGMOFR, <span class="op">-</span>ACTWRMID, <span class="op">-</span>SATVRMID, <span class="op">-</span>SATMTMID, <span class="op">-</span>SATWRMID, <span class="op">-</span>ACTENMID, <span class="op">-</span>ACTMTMID,<span class="op">-</span>ACTCMMID,<span class="op">-</span>GRADS)</span>
+<div id="51d597e1" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span> drop_na(SAT_AVG) <span class="op">|&gt;</span> drop_na(C150_4) <span class="op">|&gt;</span> select( <span class="op">-</span>ACTWRMID, <span class="op">-</span>SATVRMID, <span class="op">-</span>SATMTMID, <span class="op">-</span>SATWRMID, <span class="op">-</span>ACTENMID, <span class="op">-</span>ACTMTMID,<span class="op">-</span>ACTCMMID)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(paste(<span class="st">"Number of Schools:"</span>, nrow(cleaning)))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columns with Missing Values: "</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>colSums(<span class="kw">is</span>.na(cleaning))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -276,38 +272,46 @@ UGDS_WOMEN      GRADS    PRGMOFR
 [1] "Columns with Missing Values: "</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS 
-         0          0          0          0          0          0          0 
-  LATITUDE  LONGITUDE     LOCALE   ADM_RATE    SAT_AVG     C150_4   UGDS_MEN 
-         0          0          0          0          0          0          0 
-UGDS_WOMEN 
-         0 </code></pre>
+<pre><code>    UNITID     INSTNM       CITY     STABBR        ZIP    HIGHDEG    ST_FIPS   LATITUDE  LONGITUDE 
+         0          0          0          0          0          0          0          0          0 
+    LOCALE   ADM_RATE    SAT_AVG     C150_4   UGDS_MEN UGDS_WOMEN   NPT4_PUB  NPT4_PRIV   COSTT4_A 
+         0          0          0          0          0          0        160        127          0 </code></pre>
 </div>
+</div>
+<div id="f05c5688" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># consolidating cost of attendance</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    NPT4_PUB <span class="op">=</span> coalesce(NPT4_PUB, NPT4_PRIV)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cleaning <span class="op">&lt;-</span> cleaning <span class="op">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  rename(Avg_Net_Price <span class="op">=</span> NPT4_PUB) <span class="op">|&gt;</span> select(<span class="op">-</span>NPT4_PRIV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This leaves us a clean dataset with unique identifiers and location data for all 287 schools on the list. We also have the admission rates, the average SAT score of applicants, the completion rate for first-time, full-time students at four-year institutions (150% of expected time to completion), and the total share of undergrad enrollment who are men, and who are women. We should be able to make a pretty sophisticated report with this information. Lets save our updated CSV before we do any more exploration.</p>
-<div id="bbbbeaf3" class="cell" data-execution_count="80">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>write_csv(cleaning, <span class="st">"cleaned_admin_df.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bbbbeaf3" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>write_csv(cleaning, <span class="st">"cleaned_admin_df.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now that we have our clean dataset, we can start with some basic visualizations to make sure we have a proportional dataset</p>
-<div id="e970a08f" class="cell" data-execution_count="169">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> read_csv(<span class="st">"cleaned_admin_df.csv"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x<span class="op">=</span>STABBR)) <span class="op">+</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"count"</span>, fill<span class="op">=</span>sat_blue) <span class="op">+</span> labs(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Number of Schools per State in Sample"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"State"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"Number of Schools"</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e970a08f" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> read_csv(<span class="st">"cleaned_admin_df.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x<span class="op">=</span>STABBR)) <span class="op">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"count"</span>, fill<span class="op">=</span>sat_blue) <span class="op">+</span> labs(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Number of Schools per State in Sample"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"State"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"Number of Schools"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
-<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">287</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">15</span>
+<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">287</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">17</span>
 
-<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">─────────────────────────────────────────────────────────────────────────────</span>
 
 <span class="ansi-bold">Delimiter:</span> ","
 
 <span class="ansi-red-fg">chr</span>  (4): INSTNM, CITY, STABBR, ZIP
 
-<span class="ansi-green-fg">dbl</span> (11): UNITID, HIGHDEG, ST_FIPS, LATITUDE, LONGITUDE, LOCALE, ADM_RATE, S...
+<span class="ansi-green-fg">dbl</span> (13): UNITID, HIGHDEG, ST_FIPS, LATITUDE, LONGITUDE, LOCALE, ADM_RATE, SAT_AVG, C150_4, UGDS_...
 
 
 
@@ -320,14 +324,14 @@ UGDS_WOMEN
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="data_cleaning_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Pennsylvania has a lot more data than the others, so lets see if it’s a lot of schools, or many campuses under one school.</p>
-<div id="ac3c9a91" class="cell" data-execution_count="82">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(admin_df$INSTNM[admin_df$STABBR <span class="op">==</span> <span class="st">"PA"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ac3c9a91" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(admin_df$INSTNM[admin_df$STABBR <span class="op">==</span> <span class="st">"PA"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Bryn Athyn College of the New Church"                         
  [2] "Allegheny College"                                            
@@ -424,66 +428,66 @@ UGDS_WOMEN
 </div>
 <p>Penn State has about 20 separate schools, each of which has its own statistics in the dataset. We have a few options. We could include these as-are, we could only count the main campus, or we could aggregate all of the statistics to an average of all the campuses. Most other states have about 20-30 schools, excluding DC and Delaware, which are both tiny.</p>
 <p>Penn State’s various campuses seem to have different focuses, admission rates, and demographics of applicants, so we should probably keep all of them if we are going to compare admissions rates and school acceptances. Now lets look at the spread of our admission rates, SAT scores, proportions of men and women, and completion rates.</p>
-<div id="54d4afed" class="cell" data-execution_count="180">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of admissions rates</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Admissions Rates"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Admissions Rate"</span>, </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  theme(</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of SAT scores</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG)) <span class="op">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of SAT Averages for Admitted Students"</span>,</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average of Admitted Students"</span>, </span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  theme(</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of completion rates</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>p3 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> C150_4)) <span class="op">+</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of 6-year Completion Rates"</span>,</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"6-year Completion Rate"</span>, </span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  theme(</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co"># proportion of women (which is the inverse of the proportion of men)</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>p4 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Female Enrolled Student Proportions"</span>,</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>, </span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  theme(</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="54d4afed" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of admissions rates</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Admissions Rates"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Admissions Rate"</span>, </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of SAT scores</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG)) <span class="op">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of SAT Averages for Admitted Students"</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average of Admitted Students"</span>, </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="co">#distribution of completion rates</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>p3 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> C150_4)) <span class="op">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of 6-year Completion Rates"</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"6-year Completion Rate"</span>, </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co"># proportion of women (which is the inverse of the proportion of men)</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>p4 <span class="op">&lt;-</span> ggplot(admin_df, aes(x <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  geom_histogram(fill<span class="op">=</span><span class="st">"steelblue3"</span>, col<span class="op">=</span><span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Distribution of Female Enrolled Student Proportions"</span>,</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>, </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Frequency"</span>) <span class="op">+</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  theme(</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    plot.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">14</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>    axis.title <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">12</span>, face <span class="op">=</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    axis.text <span class="op">=</span> element_text(size <span class="op">=</span> <span class="dv">10</span>)                   </span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="6897dedc" class="cell" data-execution_count="181">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine and display plots</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("patchwork")</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'patchwork'</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="op">&lt;-</span> (p1 <span class="op">+</span> p2) <span class="op">/</span> (p3 <span class="op">+</span> p4)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the combined plot</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(combined_plot)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#this would probably look better in python, but I think the website will use some plotly stuff if we can figure it out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine and display plots</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("patchwork")</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'patchwork'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="op">&lt;-</span> (p1 <span class="op">+</span> p2) <span class="op">/</span> (p3 <span class="op">+</span> p4)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the combined plot</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(combined_plot)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#this would probably look better in python, but I think the website will use some plotly stuff if we can figure it out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
 <pre>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
@@ -499,7 +503,7 @@ UGDS_WOMEN
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="data_cleaning_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -507,79 +511,49 @@ UGDS_WOMEN
 <p>I want to look at whether there is any correlation between SAT scores and admissions rates, and the proportion of female enrolled students. Then I want to see if either of those are at all related to the 6 year completion rate, and hopefully provide a recommendation whether to maintain or remove SAT test requirements.</p>
 <p>We need to find out if high admissions rates are correlated with low SAT scores, and if low admissions rates are correlated with high SAT scores. (This seems obvious, but we should establish it)</p>
 <p>Alright, lets see if admissoins rates are correlated with SAT scores. We will start with some statistical analysis</p>
-<div id="ef1ad565" class="cell" data-execution_count="186">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Admissions Rates"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Admissions Rate"</span>)<span class="op">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    formula <span class="op">=</span> y <span class="op">~</span> x <span class="op">+</span> I(x<span class="op">^</span><span class="dv">2</span>),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    se <span class="op">=</span> TRUE, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ef1ad565" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> ADM_RATE)) <span class="op">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Admissions Rates"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Admissions Rate"</span>)<span class="op">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    formula <span class="op">=</span> y <span class="op">~</span> x <span class="op">+</span> I(x<span class="op">^</span><span class="dv">2</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    se <span class="op">=</span> TRUE, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="data_cleaning_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="ed687dc6" class="cell" data-execution_count="89">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$ADM_RATE, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>correlation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ed687dc6" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$ADM_RATE, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>correlation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>[1] -0.5716748</code></pre>
 </div>
 </div>
 <p>From this we see a moderate negative correlation. More selective schools (those with lower admissions rates) offer admission to students who have higher SAT scores. A large proportion of schools have higher accceptance rates, and accept more moderate SAT scores. Basically, fancy schools care, but the rest all hover around the same area.</p>
 <p>Now lets see if SAT score has anything to do with the number of women enrolled</p>
-<div id="2ed0ff45" class="cell" data-execution_count="185">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$UGDS_WOMEN, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Female Enrollment"</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>)<span class="op">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2ed0ff45" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$UGDS_WOMEN, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> UGDS_WOMEN)) <span class="op">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and Female Enrollment"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Female Enrolled Students"</span>)<span class="op">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.1036536</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div class="ansi-escaped-output">
-<pre>`geom_smooth()` using formula = 'y ~ x'</pre>
-</div>
-</div>
-</div>
-<p>There appears to be no relationship. Now lets try completion rates</p>
-<div id="1db7dea1" class="cell" data-execution_count="184">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$C150_4, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> C150_4)) <span class="op">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who  Graduate in 5 Years"</span>)<span class="op">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7464987</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -594,10 +568,40 @@ UGDS_WOMEN
 </div>
 </div>
 </div>
+<p>There appears to be no relationship. Now lets try completion rates</p>
+<div id="1db7dea1" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>correlation <span class="op">&lt;-</span> cor(admin_df$SAT_AVG, admin_df$C150_4, method <span class="op">=</span> <span class="st">'pearson'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(correlation)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ggplot(admin_df, aes(x <span class="op">=</span> SAT_AVG, y <span class="op">=</span> C150_4)) <span class="op">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  geom_point(col<span class="op">=</span>sat_blue) <span class="op">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  labs(title <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>, </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who  Graduate in 5 Years"</span>)<span class="op">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>   geom_smooth(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> <span class="st">"lm"</span>, col <span class="op">=</span> <span class="st">'steelblue3'</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7464987</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_cleaning_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div class="ansi-escaped-output">
+<pre>`geom_smooth()` using formula = 'y ~ x'</pre>
+</div>
+</div>
+</div>
 <p>Ahhh, so SAT may predict whether students will graduate within 6 years, with a 0.74 correlation coefficient. Lets try with a real statistical test via linear regression</p>
-<div id="22640684" class="cell" data-execution_count="95">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>summary(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="22640684" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>summary(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>
 Call:
@@ -620,11 +624,11 @@ F-statistic: 358.7 on 1 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>scaling for interpretability</p>
-<div id="95bd277a" class="cell" data-execution_count="96">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>admin_df$SAT_z <span class="op">&lt;-</span> scale(admin_df$SAT_AVG)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>model_z <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_z, data <span class="op">=</span> admin_df)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>summary(model_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="95bd277a" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>admin_df$SAT_z <span class="op">&lt;-</span> scale(admin_df$SAT_AVG)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>model_z <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_z, data <span class="op">=</span> admin_df)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>summary(model_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>
 Call:
@@ -648,75 +652,86 @@ F-statistic: 358.7 on 1 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>When SAT scores are standardized, a one–standard deviation increase in a school’s average SAT score is associated with an approximately 15 percentage-point increase in six-year completion rates (p &lt; 0.001). One standard deviation is about 150 SAT score points.</p>
 <p>Let’s try making a choropleth map of the admissions rates</p>
-<div id="1d92ef7f" class="cell" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>library(sf)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>library(mapview)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>library(rnaturalearth)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>library(rnaturalearthdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1d92ef7f" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>library(sf)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>library(dplyr)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>library(mapview)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>library(rnaturalearth)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>library(rnaturalearthdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+GDAL version &gt;= 3.1.0 | setting mapviewOptions(fgb = TRUE)
+
+Attaching package: ‘rnaturalearthdata’
+
+The following object is masked from ‘package:rnaturalearth’:
+
+    countries110
+</code></pre>
+</div>
 </div>
 <div id="4e9a2fd1" class="cell" data-execution_count="102">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("rnaturalearthhires",</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#repos = "https://ropensci.r-universe.dev")</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> ne_states(</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  country <span class="op">=</span> <span class="st">"United States of America"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  returnclass <span class="op">=</span> <span class="st">"sf"</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(postal <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("rnaturalearthhires",</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#repos = "https://ropensci.r-universe.dev")</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> ne_states(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  country <span class="op">=</span> <span class="st">"United States of America"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  returnclass <span class="op">=</span> <span class="st">"sf"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>states_sf <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(postal <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="f17fa7a4" class="cell" data-execution_count="118">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#joining the states data</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>admin_state <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(<span class="op">!</span><span class="kw">is</span>.na(ADM_RATE), <span class="op">!</span><span class="kw">is</span>.na(STABBR)) <span class="op">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  group_by(STABBR) <span class="op">|&gt;</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    avg_adm_rate <span class="op">=</span> mean(ADM_RATE, na.rm <span class="op">=</span> TRUE),</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    n_schools <span class="op">=</span> n(),</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>states_map <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  left_join(admin_state, by <span class="op">=</span> c(<span class="st">"postal"</span> <span class="op">=</span> <span class="st">"STABBR"</span>)) <span class="op">|&gt;</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  select(postal, avg_adm_rate, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#joining the states data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>admin_state <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(<span class="op">!</span><span class="kw">is</span>.na(ADM_RATE), <span class="op">!</span><span class="kw">is</span>.na(STABBR)) <span class="op">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  group_by(STABBR) <span class="op">|&gt;</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    avg_adm_rate <span class="op">=</span> mean(ADM_RATE, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    n_schools <span class="op">=</span> n(),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>states_map <span class="op">&lt;-</span> states_sf <span class="op">|&gt;</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  left_join(admin_state, by <span class="op">=</span> c(<span class="st">"postal"</span> <span class="op">=</span> <span class="st">"STABBR"</span>)) <span class="op">|&gt;</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  select(postal, avg_adm_rate, geometry)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="7112b332" class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ggplot(states_map) <span class="op">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  geom_sf(aes(fill <span class="op">=</span> avg_adm_rate), color <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  scale_fill_viridis_c(name <span class="op">=</span> <span class="st">"Acceptance Rate"</span>) <span class="op">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  theme_minimal() <span class="op">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  labs(</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Average College Admission Rates by State"</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ggplot(states_map) <span class="op">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  geom_sf(aes(fill <span class="op">=</span> avg_adm_rate), color <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  scale_fill_viridis_c(name <span class="op">=</span> <span class="st">"Acceptance Rate"</span>) <span class="op">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  theme_minimal() <span class="op">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  labs(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Average College Admission Rates by State"</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="data_cleaning_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>That makes me happy, but we’re not going to actually use it in the report, unfortunately</p>
 <p>Lets see which schools appear on the test-free and test-optional list in 2026! https://fairtest.org/test-optional-list/</p>
-<div id="e99d4d21" class="cell" data-execution_count="136">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets load that csv</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> read_csv(<span class="st">"testoptionallist.csv"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(State <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>institutions <span class="op">&lt;-</span> admin_df$INSTNM</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(Institution_Name <span class="op">%</span><span class="kw">in</span><span class="op">%</span> institutions)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> select(<span class="op">-</span>Policy_Details, <span class="op">-</span>Link_to_policy, <span class="op">-</span>Control_of_institution)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>head(tests_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e99d4d21" class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets load that csv</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> read_csv(<span class="st">"testoptionallist.csv"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(State <span class="op">%</span><span class="kw">in</span><span class="op">%</span> states)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>institutions <span class="op">&lt;-</span> admin_df$INSTNM</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> <span class="bu">filter</span>(Institution_Name <span class="op">%</span><span class="kw">in</span><span class="op">%</span> institutions)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>tests_df <span class="op">&lt;-</span> tests_df <span class="op">|&gt;</span> select(<span class="op">-</span>Policy_Details, <span class="op">-</span>Link_to_policy, <span class="op">-</span>Control_of_institution)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>head(tests_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">2089</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">8</span>
 
-<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">─────────────────────────────────────────────────────────────────────────────</span>
 
 <span class="ansi-bold">Delimiter:</span> ","
 
-<span class="ansi-red-fg">chr</span> (7): Institution_Name, State, Policy_2026, Is_policy_temporary, Link_to_...
+<span class="ansi-red-fg">chr</span> (7): Institution_Name, State, Policy_2026, Is_policy_temporary, Link_to_policy, Pct_enroll_no...
 
 <span class="ansi-green-fg">num</span> (1): Policy_Details
 
@@ -731,110 +746,215 @@ F-statistic: 358.7 on 1 and 285 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell-output cell-output-display">
 <div class="ansi-escaped-output">
 <pre><span style="color:rgb(148,148,148)"># A tibble: 6 × 5</span>
-  Institution_Name    State Policy_2026 Is_policy_temporary Pct_enroll_no_scores
-  <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span> <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>       <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               
-<span style="color:rgb(188,188,188)">1</span> Abraham Baldwin Ag… GA    Test Optio… Yes                 37%                 
-<span style="color:rgb(188,188,188)">2</span> Agnes Scott College GA    Test Optio… No                  44%                 
-<span style="color:rgb(188,188,188)">3</span> Allegheny College   PA    Test Optio… No                  68%                 
-<span style="color:rgb(188,188,188)">4</span> Alvernia University PA    Test Optio… Yes                 92%                 
-<span style="color:rgb(188,188,188)">5</span> American University DC    Test Optio… No                  58%                 
-<span style="color:rgb(188,188,188)">6</span> Anderson University SC    Test Optio… Unannounced         100%                </pre>
+  Institution_Name                     State Policy_2026   Is_policy_temporary Pct_enroll_no_scores
+  <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>                                <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span> <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>         <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               <span style="font-style:italic;color:rgb(148,148,148)">&lt;chr&gt;</span>               
+<span style="color:rgb(188,188,188)">1</span> Abraham Baldwin Agricultural College GA    Test Optional Yes                 37%                 
+<span style="color:rgb(188,188,188)">2</span> Agnes Scott College                  GA    Test Optional No                  44%                 
+<span style="color:rgb(188,188,188)">3</span> Allegheny College                    PA    Test Optional No                  68%                 
+<span style="color:rgb(188,188,188)">4</span> Alvernia University                  PA    Test Optional Yes                 92%                 
+<span style="color:rgb(188,188,188)">5</span> American University                  DC    Test Optional No                  58%                 
+<span style="color:rgb(188,188,188)">6</span> Anderson University                  SC    Test Optional Unannounced         100%                </pre>
 </div>
+</div>
+</div>
+<div id="a12d4cf1" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sapply(admin_test_df, <span class="kw">class</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>$UNITID
+[1] "numeric"
+
+$INSTNM
+[1] "character"
+
+$CITY
+[1] "character"
+
+$STABBR
+[1] "character"
+
+$ZIP
+[1] "character"
+
+$HIGHDEG
+[1] "numeric"
+
+$ST_FIPS
+[1] "numeric"
+
+$LATITUDE
+[1] "numeric"
+
+$LONGITUDE
+[1] "numeric"
+
+$LOCALE
+[1] "numeric"
+
+$ADM_RATE
+[1] "numeric"
+
+$SAT_AVG
+[1] "numeric"
+
+$C150_4
+[1] "numeric"
+
+$UGDS_MEN
+[1] "numeric"
+
+$UGDS_WOMEN
+[1] "numeric"
+
+$Avg_Net_Price
+[1] "numeric"
+
+$SAT_z
+[1] "matrix" "array" 
+
+$Policy_2026
+[1] "character"
+
+$Is_policy_temporary
+[1] "character"
+
+$Pct_enroll_no_scores
+[1] "numeric"</code></pre>
+</div>
+</div>
+<div id="29c79043" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    SAT_z <span class="op">=</span> <span class="im">as</span>.numeric(SAT_z)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span>(admin_df$SAT_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
 <p>That dataset shows the schools that have test optional policies for students applying for Fall 2026. That is the majority of our list! Now we need to join this back to the other dataset and fill in the missing values</p>
-<div id="55ff687f" class="cell" data-execution_count="202">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  left_join(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    tests_df, </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    by <span class="op">=</span> c(<span class="st">"INSTNM"</span> <span class="op">=</span> <span class="st">"Institution_Name"</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span> select(<span class="op">-</span>State)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    Policy_2026 <span class="op">=</span> replace_na(Policy_2026, <span class="st">"Test Required"</span>)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> <span class="im">as</span>.numeric(gsub(<span class="st">"%"</span>, <span class="st">""</span>, Pct_enroll_no_scores)) <span class="op">/</span> <span class="dv">100</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> replace_na(Pct_enroll_no_scores, <span class="dv">0</span>)</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    Is_policy_temporary <span class="op">=</span> replace_na(Is_policy_temporary, <span class="st">"No"</span>)</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>write_csv(admin_test_df, <span class="st">"admin_test_full.csv"</span>)</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>colnames(admin_test_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="55ff687f" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  left_join(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    tests_df, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    by <span class="op">=</span> c(<span class="st">"INSTNM"</span> <span class="op">=</span> <span class="st">"Institution_Name"</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span> select(<span class="op">-</span>State)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    Policy_2026 <span class="op">=</span> replace_na(Policy_2026, <span class="st">"Test Required"</span>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>admin_test_df <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> <span class="im">as</span>.numeric(gsub(<span class="st">"%"</span>, <span class="st">""</span>, Pct_enroll_no_scores)) <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    Pct_enroll_no_scores <span class="op">=</span> replace_na(Pct_enroll_no_scores, <span class="dv">0</span>)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">|&gt;</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>    Is_policy_temporary <span class="op">=</span> replace_na(Is_policy_temporary, <span class="st">"No"</span>)</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>write_csv(admin_test_df, <span class="st">"admin_test_full.csv"</span>)</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>write_csv(admin_test_df, <span class="st">"admin_test_full.csv"</span>)</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>colnames(admin_test_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<pre><code> [1] "UNITID"               "INSTNM"               "CITY"                
- [4] "STABBR"               "ZIP"                  "HIGHDEG"             
- [7] "ST_FIPS"              "LATITUDE"             "LONGITUDE"           
-[10] "LOCALE"               "ADM_RATE"             "SAT_AVG"             
-[13] "C150_4"               "UGDS_MEN"             "UGDS_WOMEN"          
-[16] "Policy_2026"          "Is_policy_temporary"  "Pct_enroll_no_scores"</code></pre>
+<pre><code> [1] "UNITID"               "INSTNM"               "CITY"                 "STABBR"              
+ [5] "ZIP"                  "HIGHDEG"              "ST_FIPS"              "LATITUDE"            
+ [9] "LONGITUDE"            "LOCALE"               "ADM_RATE"             "SAT_AVG"             
+[13] "C150_4"               "UGDS_MEN"             "UGDS_WOMEN"           "Avg_Net_Price"       
+[17] "COSTT4_A"             "SAT_z"                "Policy_2026"          "Is_policy_temporary" 
+[21] "Pct_enroll_no_scores"</code></pre>
 </div>
 </div>
-<div id="3bdb5115" class="cell" data-execution_count="200">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_counts <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  count(Policy_2026) <span class="op">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  mutate(pct <span class="op">=</span> n <span class="op">/</span> <span class="bu">sum</span>(n) <span class="op">*</span> <span class="dv">100</span>)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ggplot(df_counts, aes(x <span class="op">=</span> Policy_2026, y <span class="op">=</span> pct, fill <span class="op">=</span> Policy_2026 <span class="op">==</span> <span class="st">"Test Optional"</span>)) <span class="op">+</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"identity"</span>, width<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  geom_text(aes(label <span class="op">=</span> paste0(<span class="bu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>            vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, size <span class="op">=</span> <span class="dv">6</span>) <span class="op">+</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  scale_fill_manual(values <span class="op">=</span> c(<span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"grey70"</span>, <span class="st">"TRUE"</span> <span class="op">=</span> sat_blue),</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>                    guide <span class="op">=</span> <span class="st">"none"</span>) <span class="op">+</span></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  labs(</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Admissions Test Policies in Nearby Schools for Fall 2026"</span>,</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="st">"Admissions Testing Requirement"</span>,</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="st">"Percent of Nearby Schools"</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">+</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3bdb5115" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_counts <span class="op">&lt;-</span> admin_test_df <span class="op">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  count(Policy_2026) <span class="op">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  mutate(pct <span class="op">=</span> n <span class="op">/</span> <span class="bu">sum</span>(n) <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>ggplot(df_counts, aes(x <span class="op">=</span> Policy_2026, y <span class="op">=</span> pct, fill <span class="op">=</span> Policy_2026 <span class="op">==</span> <span class="st">"Test Optional"</span>)) <span class="op">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  geom_bar(stat <span class="op">=</span> <span class="st">"identity"</span>, width<span class="op">=</span><span class="fl">0.6</span>) <span class="op">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  geom_text(aes(label <span class="op">=</span> paste0(<span class="bu">round</span>(pct, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>            vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, size <span class="op">=</span> <span class="dv">6</span>) <span class="op">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  scale_fill_manual(values <span class="op">=</span> c(<span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"grey70"</span>, <span class="st">"TRUE"</span> <span class="op">=</span> sat_blue),</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                    guide <span class="op">=</span> <span class="st">"none"</span>) <span class="op">+</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  labs(</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    title <span class="op">=</span> <span class="st">"Admissions Test Policies in Nearby Schools for Fall 2026"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="st">"Admissions Testing Requirement"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="st">"Percent of Nearby Schools"</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">+</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  ylim(<span class="dv">0</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_cleaning_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="data_cleaning_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="239d1937" class="cell" data-execution_count="204">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#testing plotly charts</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("plotly")</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>library(plotly)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#fitting a linear model</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict values along the range of SAT_AVG</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>sat_range <span class="op">&lt;-</span> seq(<span class="bu">min</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>                 <span class="bu">max</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                 length.out <span class="op">=</span> <span class="dv">100</span>)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">&lt;-</span> data.frame(</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  SAT_AVG <span class="op">=</span> sat_range,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  C150_4 <span class="op">=</span> predict(lm_fit, newdata <span class="op">=</span> data.frame(SAT_AVG <span class="op">=</span> sat_range))</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">&lt;-</span> plot_ly(admin_df, </span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>               <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'markers'</span>,</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>               marker <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> sat_blue),</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>               name <span class="op">=</span> <span class="st">'Schools'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  add_trace(data <span class="op">=</span> pred_df,</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'lines'</span>,</span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> <span class="st">'steelblue3'</span>, width <span class="op">=</span> <span class="dv">2</span>),</span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> <span class="st">'Linear Trend'</span>) <span class="op">%&gt;%</span></span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  layout(title <span class="op">=</span> <span class="bu">list</span>(text <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>                      font <span class="op">=</span> <span class="bu">list</span>(size <span class="op">=</span> <span class="dv">16</span>)),</span>
-<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>         xaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>),</span>
-<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>         yaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who Graduate in 6 Years"</span>,</span>
-<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>                      tickformat <span class="op">=</span> <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="239d1937" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#testing plotly charts</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("plotly")</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>library(plotly)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#fitting a linear model</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="op">&lt;-</span> lm(C150_4 <span class="op">~</span> SAT_AVG, data <span class="op">=</span> admin_df)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict values along the range of SAT_AVG</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>sat_range <span class="op">&lt;-</span> seq(<span class="bu">min</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>                 <span class="bu">max</span>(admin_df$SAT_AVG, na.rm <span class="op">=</span> TRUE),</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>                 length.out <span class="op">=</span> <span class="dv">100</span>)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>pred_df <span class="op">&lt;-</span> data.frame(</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  SAT_AVG <span class="op">=</span> sat_range,</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  C150_4 <span class="op">=</span> predict(lm_fit, newdata <span class="op">=</span> data.frame(SAT_AVG <span class="op">=</span> sat_range))</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>fig <span class="op">&lt;-</span> plot_ly(admin_df, </span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>               <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'markers'</span>,</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>               marker <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> sat_blue),</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>               name <span class="op">=</span> <span class="st">'Schools'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>  add_trace(data <span class="op">=</span> pred_df,</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="op">~</span>SAT_AVG, y <span class="op">=</span> <span class="op">~</span>C150_4,</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">type</span> <span class="op">=</span> <span class="st">'scatter'</span>, mode <span class="op">=</span> <span class="st">'lines'</span>,</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> <span class="bu">list</span>(color <span class="op">=</span> <span class="st">'steelblue3'</span>, width <span class="op">=</span> <span class="dv">2</span>),</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> <span class="st">'Linear Trend'</span>) <span class="op">%&gt;%</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  layout(title <span class="op">=</span> <span class="bu">list</span>(text <span class="op">=</span> <span class="st">"Relationship Between SAT Average Scores and 6-Year Completion Rates"</span>,</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>                      font <span class="op">=</span> <span class="bu">list</span>(size <span class="op">=</span> <span class="dv">16</span>)),</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>         xaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"SAT Average Score for Accepted Students"</span>),</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>         yaxis <span class="op">=</span> <span class="bu">list</span>(title <span class="op">=</span> <span class="st">"Proportion of Undergrad Students Who Graduate in 6 Years"</span>,</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>                      tickformat <span class="op">=</span> <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Attaching package: ‘plotly’
+
+The following object is masked from ‘package:ggplot2’:
+
+    last_plot
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+The following object is masked from ‘package:graphics’:
+
+    layout
+</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message:
+package ‘plotly’ was built under R version 4.5.2 </code></pre>
+</div>
+</div>
+<div id="0e75473b" class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>admin_df <span class="op">&lt;-</span> admin_df <span class="op">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    SAT_z <span class="op">=</span> <span class="im">as</span>.numeric(SAT_z)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span>(admin_df$SAT_z)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>write_csv(admin_df,<span class="st">"cleaned_admin_df.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

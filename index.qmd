@@ -7,7 +7,7 @@ authors:
     affiliation: Georgetown University
     corresponding: true
 df-print: kable
-bibliography: GIS_Manuscript.bib
+bibliography: reference.bib
 title-block-banner: '#27b9f8ff'
 title-block-banner-color: "black"
 format:
@@ -19,38 +19,22 @@ format:
 prefer-html: true
 ---
 
-## Introduction
+# Introduction
+The “Scholastic Assessment Test,” or the SAT, is a major part of the college application process. It is a college entrance exam that is meant to provide a uniform metric of a student's preparedness for college. Before 2021, most colleges and universities required prospective students to submit an SAT score (or it's counterpart, the American College Test) as part of their application package. However, in the aftermath of the COVID-19 pandemic, many colleges implemented test-optional policies, waiving the testing requirement for prospective students. In 2026, six years after the onset of the pandemic, many students, parents, and institutions are wondering: Is it time to reinstate the SAT?
+(cite stuff)
 
-We're going to start with the story of my SAT experience when we give the presentation.
-https://progresslearning.com/news-blog/colleges-dropping-reinstating-act-sat-requirements/
-https://www.newamerica.org/education-policy/edcentral/the-sats-not-quite-comeback/
-https://www.usnews.com/opinion/articles/2025-10-22/college-testing-act-sat-admissions-meritocracy
-https://www.timesnewspapers.com/webster-kirkwoodtimes/sat-act-making-comeback-for-college-admissions/article_77a88f3e-34ab-49c4-b075-58ca91a5ca30.html
-https://fairtest.org/overwhelming-majority-of-u-s-colleges-and-universities-remain-act-sat-optional-or-test-blind-score-free-for-fall-2025/
+## The Scholastic Assessment Test
+The SAT is a standardized test that is typically taken in high school, in preparation for the college application process. It scores students on a scale of 200-1600 in Math, Reading/Writing, and optional Essay sections. College Board, the organization that administers the SAT, claims that students who score at least a 480 in Reading/Writing and 530 in Math, or a 1010 overall, are on track to be 'college ready'.[@sat_benchmarks]
 
-Pretend that you are a lead Data Scientist with an educational
-institution.
-▪ Your audience are VPs, directors, deans, managers, etc.
-▪ It is your job to use the data, evaluate the data and visualize the
-data.
-• Use Vis method of your choice, more than 1 is ok
-▪ It is also your job to use your data analysis results to
-communicate the information within the data
-▪ Your presentation tells a story!
-• It has the beginning, middle, and end
-• Use everything that we already learned
+College Board provides the following statement about the purpose and capabilities of the SAT:
+
+> The primary purpose of the digital SAT Suite is to assess students’ preparedness for success in both college and careers. All assessment content is developed based on high-quality research that identifies the knowledge and skills essential for college and career readiness and success. Each test within the suite is designed to collect evidence from student performance to support broad claims about what students know and can do. This aligns with the primary purpose of assessing readiness for college and career training programs. [@sat_purpose]
+
+To put it more simply, the SAT is designed to assess how well a student will perform in college. College Board published a study in 2023, which claims that “SAT scores add, on average, 15% more predictive power than high school GPA alone in understanding student performance in the first year of college." [@sat_study] It is easier for a college to determine how well a student will perform at their institution when they have the SAT as a metric. Being such a large part of the college application process, the SAT is a source of stress for many students, and some believe it creates a class barrier for low-income students who cannot afford the test, or its preparation. [@Kantrowitz_2022]
 
 
-Something about how during COVID-19, SAT requirements for college applications were removed or turned optional. I should find a news article about how they are slowly coming back.
-
-We should also have a paragraph about what they're supposed to do, why colleges want standardized testing, and stuff like that.
-
-Then we look at some of the numbers and see if high SAT requirements have anything to do with the percent of students who complete their degrees.
-
-
-## Exploratory Data Analysis (EDA)
-
-Here we plot the base GIS objects we're analyzing: the location of each **capital city** (in purple) and each **population centroid** (in yellow).
+## The Introduction of Test-Optional Policies
+During the COVID-19 pandemic, it became extremely difficult for students to take the SAT. Many test centers were shut down due to local states of emergency. In addition, many students faced health concerns, financial constraints, or mental health crises that prevented them from taking the exams. In a response to the pandemics restrictions, many schools implemented 'test-optional' policies. Under these policies, the schools did not require students to take the SAT (or ACT) to apply for undergraduate admission. As a result, the number of students who took the SAT in 2021 was 30% lower than in 2020, and that number has not returned to pre-pandemic levels as of 2024's published metrics. [@USAFacts_Team_2022] This decline of test-takers over time is displayed in the line chart below, to show the effect of the COVID-19 pandemic on SAT testing.
 
 ```{r}
 #| label: imports
@@ -73,6 +57,64 @@ df_counts <- admin_test_df |>
   count(Policy_2026) |>
   mutate(pct = n / sum(n) * 100)
 ```
+
+
+```{r}
+#| echo: false
+year <- c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024)
+test_takers <- c(1637589, 1715481, 2136539, 2220087, 2198460, 1509133, 1737678, 1913742, 1973891)
+test_takers_df <- data.frame(year, test_takers)
+
+fig <- plot_ly(
+  test_takers_df,
+  x = ~year,
+  y = ~test_takers/1e6,
+  type = 'scatter',
+  mode = 'lines+markers',
+  line = list(color = sat_blue, width = 2),
+  text = ~paste(
+    "Year: ", year,
+    "<br>Number of Students:", format(test_takers, big.mark = ",")
+  ),
+  hoverinfo = 'text'
+) |>
+  layout(
+    title = list(
+      text = "SAT Test Takers by Year (2016-2024)",
+      x = 0.5,
+      font = list(size = 16, color = "black", family = "Arial") 
+    ),
+    xaxis = list(
+      title = list(text="Year", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(text="Number of Test Takers (millions)", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      tickformat = ".1f",
+      fixedrange = TRUE
+    )
+  ) |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+#| echo: false
+fig
+```
+
+
+
+
 
 ```{r}
 #| label: testing charts

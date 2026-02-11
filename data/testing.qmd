@@ -1,3 +1,6 @@
+
+# Testing all the charts
+
 ```{r}
 #| label: imports
 library(tidyverse) |> suppressPackageStartupMessages()
@@ -49,6 +52,8 @@ theme_set(theme_eda)
 
 ```
 
+## Loading data
+
 ```{r}
 #| label: loading_data
 admin_df <- read_csv("cleaned_admin_df.csv")
@@ -57,6 +62,9 @@ df_counts <- admin_test_df |>
   count(Policy_2026) |>
   mutate(pct = n / sum(n) * 100)
 ```
+
+
+## SAT and Completion scatterplot
 
 ```{r}
 #| label: testing charts
@@ -117,7 +125,7 @@ fig
 ```
 
 
-and a static bar chart
+## Test policy bar chart
 
 ```{r}
 fig <- plot_ly(
@@ -134,16 +142,16 @@ fig <- plot_ly(
 ) |>
   layout(
     title = list(
-      text = "Admissions Test Policies in Nearby Schools for Fall 2026",
+      text = "Test Policies in Sampled Schools for Fall 2026",
       x = 0.5,
       font = list(size = 18, color = "black", family = "Arial")  # Match scatterplot title style
     ),
     xaxis = list(
-      title = list(text="Admissions Testing Requirement", font = list(size = 14, color = "black", family = "Arial")),
+      title = list(text="Admission Testing Requirement", font = list(size = 14, color = "black", family = "Arial")),
       tickfont = list(size = 12, color = "black", family = "Arial")
     ),
     yaxis = list(
-      title = list(text="Percent of Nearby Schools", font = list(size = 14, color = "black", family = "Arial")),
+      title = list(text="Percent of Sampled Schools", font = list(size = 14, color = "black", family = "Arial")),
       tickfont = list(size = 12, color = "black", family = "Arial"),
       tickformat = ".0%",
       range = c(0, 1)
@@ -157,17 +165,22 @@ fig <- plot_ly(
 fig
 ```
 
+## Test tester
+When SAT scores are standardized, a one–standard deviation increase in a school’s average SAT score is associated with an approximately 15 percentage-point increase in six-year completion rates (p < 0.001). One standard deviation is about 150 SAT score points.
+
 ```{r}
-value <- 0.20   # 20%
-previous <- 0.41
+value <- 0.15
 
 ggplot() +
-  annotate("text", x=0, y=0.6, label = scales::percent(value), size = 20, fontface = "bold", color = "#2C7BB6") +
-  annotate("text", x=0, y=0.4, label = paste0("of children had a\ntraditional stay-at-home mom"), size = 6, hjust=0.5) +
-  annotate("text", x=0, y=0.2, label = paste0("in 2012, compared to ", scales::percent(previous), " in 1970"), size = 5, color="grey50") +
+  annotate("text", x=0, y=0.7, label = paste0("Colleges have"), size = 6, hjust=0.5) +
+  annotate("text", x=0, y=0.5, label = scales::percent(value), size = 20, fontface = "bold", color = sat_blue) +
+  annotate("text", x=0, y=0.3, label = paste0("higher 6-year completion rates"), size = 6, hjust=0.5) +
+  annotate("text", x=0, y=0.2, label = paste0("per 150 average SAT points above 1170"), size = 5, color="grey50") +
   theme_void() +
-  xlim(-1, 1) + ylim(0, 1)
+  xlim(-0.8, 0.8) + ylim(0, 1)
 ```
+
+## Test taker line chart
 
 ```{r}
 
@@ -206,6 +219,199 @@ fig <- plot_ly(
       fixedrange = TRUE
     )
   ) |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+fig
+```
+
+
+## real text one
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+value <- 0.15
+
+ggplot() +
+  annotate("text", x=0, y=0.7, label = paste0("The SAT has"), size = 6, hjust=0.5) +
+  annotate("text", x=0, y=0.5, label = scales::percent(value), size = 20, fontface = "bold", color = sat_blue) +
+  annotate("text", x=0, y=0.3, label = paste0("more predictive power than GPA alone"), size = 6, hjust=0.5) +
+  annotate("text", x=0, y=0.2, label = paste0("for mapping first-year college success"), size = 5, color="grey50") +
+  theme_void() +
+  xlim(-0.8, 0.8) + ylim(0, 1)
+
+```
+
+## cost and sat scores scatterplot
+
+```{r}
+#| label: cost chart
+
+fig <- plot_ly(admin_test_df, 
+               x = ~SAT_AVG, y = ~COSTT4_A,
+               type = 'scatter', mode = 'markers',
+               marker = list(color = ~ifelse(Policy_2026 == "Test Required", sat_blue, sat_grey)),
+               name = 'Schools',
+               text = ~paste(
+    "School: ", INSTNM,
+    "<br>Average SAT: ", SAT_AVG,
+    "<br>Average Cost of Attendance: $", format(COSTT4_A, big.mark = ",")
+  ),
+  hoverinfo = 'text'
+) |>
+  layout(
+    title = list(
+      text = "Relationship Between Average SAT Scores and Average Cost of Attendance",
+      font = list(size = 18, color = "black", family = "Arial"),
+      x = 0.5  # centers the title like hjust = 0.5
+    ),
+    margin = list(t = 90),
+    xaxis = list(
+      title = list(text = "SAT Average Score for Accepted Students", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(text = "Cost of Attendance ($)", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      fixedrange = TRUE
+    ),
+    legend = list(
+      title = list(text = "", font = list(size = 14, color = "black")),
+      font = list(size = 12, color = "black")
+    ),
+    dragmode = "zoom" 
+  ) |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+fig
+```
+
+
+## Cost and completion scatterplot
+
+```{r}
+#| label: ccost and completion
+
+fig <- plot_ly(admin_df, 
+               x = ~C150_4, y = ~COSTT4_A,
+               type = 'scatter', mode = 'markers',
+               marker = list(color = sat_blue),
+               name = 'Schools',
+               text = ~paste(
+    "School: ", INSTNM,
+    "<br>Average Cost of Attendance: $", format(COSTT4_A, big.mark = ","),
+    "<br>Completion Rate: ", scales::percent(C150_4, accuracy = 1)
+  ),
+  hoverinfo = 'text'
+) |>
+  layout(
+    title = list(
+      text = "Relationship Between School Cost of Attendance and Completion Rate",
+      font = list(size = 18, color = "black", family = "Arial"),
+      x = 0.5  # centers the title like hjust = 0.5
+    ),
+    margin = list(t = 90),
+    xaxis = list(
+      title = list(text = "Undergraduate 6-Year Completion Rate", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      tickformat = ".0%",
+      fixedrange = TRUE
+    ),
+    yaxis =  list(
+      title = list(text = "Cost of Attendance ($)", font = list(size = 14, color = "black", family = "Arial")),
+      tickfont = list(size = 12, color = "black", family = "Arial"),
+      fixedrange = TRUE
+    ),
+   
+    legend = list(
+      title = list(text = "", font = list(size = 14, color = "black")),
+      font = list(size = 12, color = "black")
+    ),
+    dragmode = "zoom" 
+  ) |>
+  config(
+    modeBarButtonsToRemove = c(
+      "select2d",   # box select
+      "lasso2d",    # lasso select
+      "toggleSpikelines"  # optional extra buttons you might not want
+    ),
+    displaylogo = FALSE  # removes Plotly logo
+  )
+
+```
+
+```{r}
+fig
+```
+
+
+## Sat and admissions rates scatterplot
+
+```{r}
+quad_fit <- lm(ADM_RATE ~ SAT_AVG + I(SAT_AVG^2), data = admin_df)
+
+#generating predicitons
+x_seq <- seq(min(admin_df$SAT_AVG, na.rm = TRUE),
+             max(admin_df$SAT_AVG, na.rm = TRUE),
+             length.out = 200)
+
+pred_df <- data.frame(SAT_AVG = x_seq)
+pred <- predict(quad_fit, newdata = pred_df, interval = "confidence", level = 0.95)
+pred_df$fit <- pred[, "fit"]
+pred_df$lwr <- pred[, "lwr"]
+pred_df$upr <- pred[, "upr"]
+
+#chart
+fig <- plot_ly() |>
+  # Scatter points
+  add_trace(data = admin_df,
+            x = ~SAT_AVG, y = ~ADM_RATE,
+            type = 'scatter', mode = 'markers',
+            marker = list(color = sat_blue),
+            name = 'Schools', text = ~paste(
+    "School: ", INSTNM,
+    "<br>Average SAT: ", SAT_AVG,
+    "<br>Admission Rate: ", scales::percent(ADM_RATE, accuracy = 1)
+  ),
+  hoverinfo = 'text'
+) |>
+  # Regression line
+  add_trace(data = pred_df,
+            x = ~SAT_AVG, y = ~fit,
+            type = 'scatter', mode = 'lines',
+            line = list(color = sat_grey, width = 2),
+            name = 'Line of Best Fit') |>
+  # Confidence ribbon
+  add_ribbons(data = pred_df,
+              x = ~SAT_AVG,
+              ymin = ~lwr, ymax = ~upr,
+              fillcolor = 'rgba(70,130,180,0.2)',  # semi-transparent steelblue
+              line = list(color = 'transparent'),
+              name = '95% CI') |>
+  layout(title = list(text="Relationship Between SAT Average Scores and Admission Rates",tickfont = list(size = 16, color = "black", family = "Arial")),
+         xaxis = list(title = "SAT Average Score for Accepted Students", fixedrange = TRUE, tickfont = list(size = 14, color = "black", family = "Arial")),
+         yaxis = list(title = "Admission Rate", fixedrange = TRUE, tickformat = ".0%", tickfont = list(size = 14, color = "black", family = "Arial")),
+        dragmode = "zoom") |>
   config(
     modeBarButtonsToRemove = c(
       "select2d",   # box select
