@@ -8,7 +8,7 @@ authors:
     corresponding: true
 df-print: kable
 bibliography: reference.bib
-title-block-banner: '#27b9f8ff'
+title-block-banner: '#5787b4ff'
 title-block-banner-color: "black"
 format:
   html:
