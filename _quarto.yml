@@ -8,10 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Report
-      - href: data\ai_statement.qmd
-        text: AI Statement
       - href: data\data_cleaning.ipynb
-        text: Data Cleaning
+        text: Data Cleaning and AI Statement
 
 format:
   html:

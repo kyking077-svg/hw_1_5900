@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Cleaning – To Test, or Not to Test?</title>
+<title>Data Cleaning and AI Statement – To Test, or Not to Test?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,12 +128,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data/ai_statement.html"> 
-<span class="menu-text">AI Statement</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link active" href="../data/data_cleaning.html" aria-current="page"> 
-<span class="menu-text">Data Cleaning</span></a>
+<span class="menu-text">Data Cleaning and AI Statement</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -154,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Cleaning</h1>
+<h1 class="title">Data Cleaning and AI Statement</h1>
 </div>
 
 
@@ -171,9 +167,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="data-cleaning-for-homework-1" class="level3">
-<h3 class="anchored" data-anchor-id="data-cleaning-for-homework-1">Data Cleaning for Homework 1</h3>
-<p>This Jupyter Notebook contains all the information for cleaning and processing the data for the website report. The technical information about sourcing and preprocessing will be in this Notebook, and not in the official report content page. This project uses R primarily, through the Tidyverse package.</p>
+<section id="ai-statement" class="level2">
+<h2 class="anchored" data-anchor-id="ai-statement">AI Statement</h2>
+<p>I did not use AI in this report, as stated at the beginning of the main report page. I think AI hinders learning, because it stops the brain from stretching and thinking about probelms. It is not as good of a writer as I am, so I have no need to use it in my writing. It is a better coder than I am, but that means I need to continue learning and memorizing the coding languages and tests that I want to perform. The only academic task I find AI suitable for is code debugging, but I also avoided that because I am trying to learn debugging on my own. Once I am confident in my abilities and fully understand the simpler tasks of coding, I would consider using AI to do more menial tasks that I am sure I do not need to supervise. Until then, I will continue to avoid using AI for academic projects. Instead, I used coursework, textbooks, documentation, unassisted web searches, and old school forum searches to find answers to my questions throughout the technical part of this project.</p>
+<p>If I used AI, I could likely create more complex or more customized charts and objects. As it is, I am limited to my own creativity and (limited) knowledge of how these libraries are meant to function. I would also likely have completed this project faster, as I had to stop and look for directions many times per hour of work. It is a relatively simple and straightforward project, but I decided to be ambitious and implement Plotly to use the interactive charts we just learned about in DSAN 5200. In those ways, this project could have been better. I do not think this project would have necessarily been ‘worse’ if I used AI, because I would have been very strict with the outputs and adjusted them to my needs. However, that could potentially take more time than I spent looking up the correct inputs. I also would not have learned as much Plotly code as I did during the course of this project, which would be a detriment to my future success. I am pleased with my decision.</p>
+<section id="project-timeline" class="level3">
+<h3 class="anchored" data-anchor-id="project-timeline">Project Timeline</h3>
+<p>The following is a record of the project timeline.</p>
+<p>January 29: - Researched and identified the College Scorecard dataset, and chose a loose topic around SAT test scores and admissions rates</p>
+<p>February 4: - Coordinated with Dani and Zoo Un to ensure that Dani and I had distinct projects, because we both wanted to use College Scorecard. We settled on different topics (institutional demand for the number of applicants, vs test scores), and different regions (Northeast vs Southeast, divided east coast states between us)</p>
+<p>Febraury 5: - Researched the SAT and other relevant topics - Created GitHub pages for the final website report - Cleaned the data for use - Identified Fair Test’s database on schools with test optional policies</p>
+<p>February 10: - Created most charts and graphics - Drafted report text, and completed other research to finish the narrative - Created first iteration of presentation slides</p>
+<p>Februrary 11: - Practiced and timed presentation slides - Removed irrelevant presentation content; tightened narrative - Finished all report text - Citations, auxiliary pages, and technical details - Continued practicing to reach desired time</p>
+<p>February 12: - Practiced and perfected slides - Turned in slides and report</p>
+</section>
+<section id="data-cleaning-log" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning-log">Data Cleaning Log</h3>
+<p>This Jupyter Notebook contains all the information for cleaning and processing the data for the website report. The technical information about sourcing and preprocessing will be in this Notebook, and not in the official report content page. This project uses R primarily, through the Tidyverse package. This data cleaning log is not the prettiest one ever, and it is poorly commented. However, the cleaning process is relatively well documented, as are the relevant statistical tests. The charts were made using ggplot2, but the final iterations, as seen in the Report document, were generated using Plotly in R. The documentation for these charts are on the related github page for this project, under /docs/testing.qmd</p>
 <div id="1c5110c5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">##install.packages('tidyverse')</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>library(<span class="st">'tidyverse'</span>)</span>
@@ -1033,6 +1043,7 @@ package ‘plotly’ was built under R version 4.5.2 </code></pre>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
